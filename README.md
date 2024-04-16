@@ -1,4 +1,4 @@
-This is a basic simple code made to simulate football games and a simple championship.
+This is a basic code made to simulate football games and a simple championship.
 
 This project is still being developed.
 
