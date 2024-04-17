@@ -1,6 +1,6 @@
 This project is still being developed.
 
-This is a basic code made to simulate football games and a simple championship.
+This is a basic program made to simulate football games and a simple championship.
 
 How to play?
 
