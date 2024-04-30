@@ -1,0 +1,70 @@
+jogadores_flamengo = {
+    'Diego Alves': {'Posicao': 'Goleiro', 'Forca': 84, 'Idade': 36, 'Nacionalidade': 'Brasil'},
+    'Hugo Souza': {'Posicao': 'Goleiro', 'Forca': 75, 'Idade': 23, 'Nacionalidade': 'Brasil'},
+    'Maurício Isla': {'Posicao': 'Lateral Direito', 'Forca': 81, 'Idade': 33, 'Nacionalidade': 'Chile'},
+    'Rodinei': {'Posicao': 'Lateral Direito', 'Forca': 75, 'Idade': 29, 'Nacionalidade': 'Brasil'},
+    'Gustavo Henrique': {'Posicao': 'Zagueiro', 'Forca': 78, 'Idade': 28, 'Nacionalidade': 'Brasil'},
+    'Bruno Viana': {'Posicao': 'Zagueiro', 'Forca': 77, 'Idade': 26, 'Nacionalidade': 'Portugal'},
+    'Filipe Luís': {'Posicao': 'Lateral Esquerdo', 'Forca': 82, 'Idade': 36, 'Nacionalidade': 'Brasil'},
+    'Léo Pereira': {'Posicao': 'Zagueiro', 'Forca': 75, 'Idade': 25, 'Nacionalidade': 'Brasil'},
+    'Willian Arão': {'Posicao': 'Meio-Campo', 'Forca': 80, 'Idade': 29, 'Nacionalidade': 'Brasil'},
+    'Gerson': {'Posicao': 'Meio-Campo', 'Forca': 83, 'Idade': 24, 'Nacionalidade': 'Brasil'},
+    'Everton Ribeiro': {'Posicao': 'Meio-Campo', 'Forca': 82, 'Idade': 32, 'Nacionalidade': 'Brasil'},
+    'Arrascaeta': {'Posicao': 'Meio-Campo', 'Forca': 84, 'Idade': 27, 'Nacionalidade': 'Uruguai'},
+    'Gabigol': {'Posicao': 'Atacante', 'Forca': 84, 'Idade': 25, 'Nacionalidade': 'Brasil'},
+    'Bruno Henrique': {'Posicao': 'Atacante', 'Forca': 83, 'Idade': 31, 'Nacionalidade': 'Brasil'}
+    }
+
+jogadores_corinthians = {
+    'Cássio': {'Posicao': 'Goleiro', 'Forca': 82, 'Idade': 35, 'Nacionalidade': 'Brasil'},
+    'Matheus Donelli': {'Posicao': 'Goleiro', 'Forca': 70, 'Idade': 19, 'Nacionalidade': 'Brasil'},
+    'Fagner': {'Posicao': 'Lateral Direito', 'Forca': 80, 'Idade': 33, 'Nacionalidade': 'Brasil'},
+    'João Victor': {'Posicao': 'Zagueiro', 'Forca': 75, 'Idade': 23, 'Nacionalidade': 'Brasil'},
+    'Raul Gustavo': {'Posicao': 'Zagueiro', 'Forca': 74, 'Idade': 22, 'Nacionalidade': 'Brasil'},
+    'Fábio Santos': {'Posicao': 'Lateral Esquerdo', 'Forca': 76, 'Idade': 36, 'Nacionalidade': 'Brasil'},
+    'Lucas Piton': {'Posicao': 'Lateral Esquerdo', 'Forca': 73, 'Idade': 21, 'Nacionalidade': 'Brasil'},
+    'Gabriel': {'Posicao': 'Meio-Campo', 'Forca': 78, 'Idade': 29, 'Nacionalidade': 'Brasil'},
+    'Roni': {'Posicao': 'Meio-Campo', 'Forca': 76, 'Idade': 23, 'Nacionalidade': 'Brasil'},
+    'Vitinho': {'Posicao': 'Meio-Campo', 'Forca': 77, 'Idade': 24, 'Nacionalidade': 'Brasil'},
+    'Xavier': {'Posicao': 'Meio-Campo', 'Forca': 76, 'Idade': 23, 'Nacionalidade': 'Brasil'},
+    'Adson': {'Posicao': 'Meio-Campo', 'Forca': 74, 'Idade': 21, 'Nacionalidade': 'Brasil'},
+    'Róger Guedes': {'Posicao': 'Atacante', 'Forca': 82, 'Idade': 24, 'Nacionalidade': 'Brasil'},
+    'Paulinho': {'Posicao': 'Atacante', 'Forca': 80, 'Idade': 23, 'Nacionalidade': 'Brasil'},
+}
+
+corinthans = list()
+flamengo = list()
+corinthans.append(jogadores_corinthians)
+flamengo.append(jogadores_flamengo)
+
+seu_time = int(input('Escolha um time: [1] - Corinthans / [2] - Flamengo: '))
+if seu_time == 1:
+    seu_time = corinthans
+    time_pc = flamengo
+
+if seu_time == 2:
+    seu_time = flamengo
+
+while True:
+
+    ver = int(input('[1] - Ver seu time'))
+
+    if ver == 1:
+
+        print('-' * 150)
+        print(f'{"Jogadores":<20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')
+        print('-' * 150)
+
+
+        for dic in seu_time:
+            for key, value in dic.items():
+                print(f'{key:<20}', end='')
+                for caracteristica, valor in value.items():
+                    print(f'{valor:>20}', end='')
+                print()
+
+
+
+
+
+
