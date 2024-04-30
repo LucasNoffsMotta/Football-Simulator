@@ -7,7 +7,7 @@ def times():
     #Dentro do dicionario de cada time terao alguns atributos: Estadio & Reputacao
     #Dentro do dicionario de cada time tera uma lista com os jogadores - cada jogador sera um dicionario
 
-    times_brasil = dict()
+    times_brasil = dict
 
     jogadores_palmeiras = {
         'Weverton':{'Posicao':'Goleiro','Força':85,'Idade':36,'Nacionalidade':'Brasil'},
