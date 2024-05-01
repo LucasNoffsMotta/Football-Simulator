@@ -28,6 +28,82 @@ jogadores_flamengo = {
 ]
 }
 
+#Funcao para escolher esquemas taticos:
+def escolha_esquema():
+
+    while True:
+        esquema_escolhido = int(input('Deseja utilizar qual esquema tatico?\n'
+                                      '[1]: 4-4-2\n[2]: 4-3-3\n[3]: 3-5-2\n[4]: 4-2-3-1\n: '))
+
+        if esquema_escolhido > 0 and esquema_escolhido < 5:
+            return esquema_escolhido
+
+        else:
+            print('Digite um numero de 1 a 4.')
+
+
+#Funcao para definir esquemas taticos:
+def esquemas_taticos(esquema_escolhido):
+
+    seu_time_titular = dict()
+
+    if esquema_escolhido == 1:
+        seu_time_titular = {'Goleiro': {'Status': 'Vazio'}, 'Zagueiro Esquerdo': {'Status': 'Vazio'},
+                            'Zagueiro Direito': {'Status': 'Vazio'},
+                            'Lateral Esquerdo': {'Status': 'Vazio'}, 'Lateral Direito': {'Status': 'Vazio'},
+                            'Meio Campo 1': {'Status': 'Vazio'},
+                            'Meio-Campo 2': {'Status': 'Vazio'}, 'Meio-Campo 3': {'Status': 'Vazio'},
+                            'Meio-Campo 4': {'Status': 'Vazio'},
+                            'Atacante Direito': {'Status': 'Vazio'}, 'Atacante Esquerdo': {'Status': 'Vazio'}}
+
+    elif esquema_escolhido == 2:
+        seu_time_titular = {
+            'Goleiro': {'Status': 'Vazio'},
+            'Zagueiro Esquerdo': {'Status': 'Vazio'},
+            'Zagueiro Central 1': {'Status': 'Vazio'},
+            'Zagueiro Central 2': {'Status': 'Vazio'},
+            'Zagueiro Direito': {'Status': 'Vazio'},
+            'Meio-Campo 1': {'Status': 'Vazio'},
+            'Meio-Campo 2': {'Status': 'Vazio'},
+            'Meio-Campo 3': {'Status': 'Vazio'},
+            'Atacante Direito': {'Status': 'Vazio'},
+            'Atacante Central': {'Status': 'Vazio'},
+            'Atacante Esquerdo': {'Status': 'Vazio'}
+        }
+
+    elif esquema_escolhido == 3:
+
+        seu_time_titular = {
+            'Goleiro': {'Status': 'Vazio'},
+            'Zagueiro Esquerdo': {'Status': 'Vazio'},
+            'Zagueiro Central 1': {'Status': 'Vazio'},
+            'Zagueiro Direito': {'Status': 'Vazio'},
+            'Meio-Campo Esquerdo': {'Status': 'Vazio'},
+            'Meio-Campo Central 1': {'Status': 'Vazio'},
+            'Meio-Campo Central 2': {'Status': 'Vazio'},
+            'Meio-Campo Central 3': {'Status': 'Vazio'},
+            'Meio-Campo Direito': {'Status': 'Vazio'},
+            'Atacante 1': {'Status': 'Vazio'},
+            'Atacante 2': {'Status': 'Vazio'}
+        }
+
+    elif esquema_escolhido == 4:
+
+        seu_time_titular = {
+            'Goleiro': {'Status': 'Vazio'},
+            'Zagueiro Esquerdo': {'Status': 'Vazio'},
+            'Zagueiro Central 1': {'Status': 'Vazio'},
+            'Zagueiro Central 2': {'Status': 'Vazio'},
+            'Zagueiro Direito': {'Status': 'Vazio'},
+            'Meio-Campo Defensivo 1': {'Status': 'Vazio'},
+            'Meio-Campo Defensivo 2': {'Status': 'Vazio'},
+            'Meio-Campo Central': {'Status': 'Vazio'},
+            'Meio-Campo Ofensivo': {'Status': 'Vazio'},
+            'Atacante': {'Status': 'Vazio'}
+        }
+
+    return seu_time_titular
+
 #Funcao para mostrar o time completo (tela inicial do jogo):
 def mostrar_time(seu_time):
     print('-' * 150)
@@ -45,19 +121,15 @@ def mostrar_time(seu_time):
 def escolhendo_posicao(seu_time):
 
     #Incluindo o nome dos jogadores do time em uma lista para utilizar como validacao futuramente no codigo
-
     jogadores_time = list()
     for posicao in seu_time:
         for key,value in posicao.items():
             for jogador in value:
                 jogadores_time.append(jogador['Nome'])
 
-    #Formacao do time titular com posicoes fixas em 4-4-2:
-
-    seu_time_titular = {'Goleiro': {'Status':'Vazio'}, 'Zagueiro Esquerdo': {'Status':'Vazio'}, 'Zagueiro Direito': {'Status':'Vazio'},
-                        'Lateral Esquerdo': {'Status':'Vazio'}, 'Lateral Direito': {'Status':'Vazio'}, 'Meio Campo 1':{'Status':'Vazio'},
-                        'Meio-Campo 2': {'Status':'Vazio'}, 'Meio-Campo 3': {'Status':'Vazio'}, 'Meio-Campo 4': {'Status':'Vazio'},
-                        'Atacante Direito': {'Status':'Vazio'}, 'Atacante Esquerdo': {'Status':'Vazio'}}
+    #Formacao do time titular:
+    escolha_sistema = escolha_esquema()
+    seu_time_titular = esquemas_taticos(escolha_sistema)
 
     #Loop para captar o jogador por posicao:
     for posicao_vazia in seu_time_titular.keys():
@@ -79,6 +151,8 @@ def escolhendo_posicao(seu_time):
                             if jogador_titular in jogador.values():
                                 seu_time_titular[posicao_vazia] = jogador
 
+                #Removendo o jogador selecionado da lista de jogadores do time:
+                jogadores_time.remove(jogador_titular)
 
                 #Printando o time titular a cada entrada:
                 print('TIME TITULAR')
@@ -99,13 +173,11 @@ def escolhendo_posicao(seu_time):
     return seu_time_titular
 
 
-
-
 corinthans = list()
 flamengo = list()
 flamengo.append(jogadores_flamengo)
 
-seu_time = int(input('Escolha um time: [1] - Corinthans / [2] - Flamengo: '))
+seu_time = int(input('Escolha um time: [1] - Corinthans / [2] - Flamengo\n: '))
 seu_time_titular = dict()
 time_pc_titular = dict()
 
@@ -120,7 +192,7 @@ if seu_time == 2:
 
 while True:
 
-    ver = int(input('[1] - Ver seu time / [2] - Escolher time titular '))
+    ver = int(input('[1] - Ver seu time / [2] - Escolher time titular\n: '))
 
     if ver == 1:
 
@@ -130,6 +202,15 @@ while True:
 
         while True:
             escolhendo_posicao(seu_time)
+
+
+
+
+
+
+
+
+
 
 
 
