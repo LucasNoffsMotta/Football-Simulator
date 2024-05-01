@@ -1,3 +1,4 @@
+#Dicionario dos times (serao compactados em uma funcao apos os testes):
 jogadores_flamengo = {
     'Goleiro': [
         {'Nome': 'Diego Alves', 'Posicao':'Goleiro','Forca': 84, 'Idade': 36, 'Nacionalidade': 'Brasil'},
@@ -27,19 +28,23 @@ jogadores_flamengo = {
 ]
 }
 
+#Funcao para mostrar o time completo (tela inicial do jogo):
 def mostrar_time(seu_time):
     print('-' * 150)
-    print(f'{"Jogadores":<20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')
+    print(f'{"Jogadores":<20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')  #Primeira linha da tabela
     print('-' * 150)
 
-    for posicao in seu_time:  # Dicionario de posicao dentro da lista do seu_time = posicao
+    for posicao in seu_time:    #Loop para mostrar o time formatado em tabela
         for key, value in posicao.items():
             for jogador in value:
                 for caracteristica, valor in jogador.items():
                     print(f'{valor:>20}', end='')
                 print()
 
+#Funcao para montar o time que ira jogar:
 def escolhendo_posicao(seu_time):
+
+    #Incluindo o nome dos jogadores do time em uma lista para utilizar como validacao futuramente no codigo
 
     jogadores_time = list()
     for posicao in seu_time:
@@ -47,21 +52,27 @@ def escolhendo_posicao(seu_time):
             for jogador in value:
                 jogadores_time.append(jogador['Nome'])
 
+    #Formacao do time titular com posicoes fixas em 4-4-2:
+
     seu_time_titular = {'Goleiro': {'Status':'Vazio'}, 'Zagueiro Esquerdo': {'Status':'Vazio'}, 'Zagueiro Direito': {'Status':'Vazio'},
                         'Lateral Esquerdo': {'Status':'Vazio'}, 'Lateral Direito': {'Status':'Vazio'}, 'Meio Campo 1':{'Status':'Vazio'},
                         'Meio-Campo 2': {'Status':'Vazio'}, 'Meio-Campo 3': {'Status':'Vazio'}, 'Meio-Campo 4': {'Status':'Vazio'},
                         'Atacante Direito': {'Status':'Vazio'}, 'Atacante Esquerdo': {'Status':'Vazio'}}
 
+    #Loop para captar o jogador por posicao:
     for posicao_vazia in seu_time_titular.keys():
         mostrar_time(seu_time)
         print('-'*100)
 
+        #Loop para validar a entrada do usuario e garantir uma entrada valida para a posicao:
         while True:
             jogador_titular = input(f'Digite o nome do jogador para a posicao {posicao_vazia}: ')
             print('-'*100)
 
+            #Validando a entrada comparando com a lista de nomes dos jogadores do time:
             if jogador_titular in jogadores_time:
 
+                #Colocando o dicionario do jogador dentro do time titular:
                 for posicao in seu_time:
                     for key, value in posicao.items():
                         for jogador in value:
@@ -69,13 +80,15 @@ def escolhendo_posicao(seu_time):
                                 seu_time_titular[posicao_vazia] = jogador
 
 
+                #Printando o time titular a cada entrada:
                 print('TIME TITULAR')
                 print('-' * 150)
-                print(f'{"Jogadores":>20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')
+                print(f'{"Posicao no Esquema":<20}{"Jogadores":>20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')
                 print('-' * 150)
 
                 for item,value in seu_time_titular.items():
-                    for values in value.values():
+                    print(f'{item:<20}',end = '')
+                    for key,values in value.items():
                         print(f'{values:>20}',end = '')
                     print()
                 break
@@ -84,6 +97,7 @@ def escolhendo_posicao(seu_time):
 
 
     return seu_time_titular
+
 
 
 
@@ -116,26 +130,6 @@ while True:
 
         while True:
             escolhendo_posicao(seu_time)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
