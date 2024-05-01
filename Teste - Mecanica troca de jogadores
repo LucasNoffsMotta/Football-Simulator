@@ -27,6 +27,50 @@ jogadores_flamengo = {
 ]
 }
 
+def mostrar_time(seu_time):
+    print('-' * 150)
+    print(f'{"Jogadores":<20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')
+    print('-' * 150)
+
+    for posicao in seu_time:  # Dicionario de posicao dentro da lista do seu_time = posicao
+        for key, value in posicao.items():
+            for jogador in value:
+                for caracteristica, valor in jogador.items():
+                    print(f'{valor:>20}', end='')
+                print()
+
+def escolhendo_posicao(seu_time):
+
+    seu_time_titular = {'Goleiro': {'Status':'Vazio'}, 'Zagueiro Esquerdo': {'Status':'Vazio'}, 'Zagueiro Direito': {'Status':'Vazio'},
+                        'Lateral Esquerdo': {'Status':'Vazio'}, 'Lateral Direito': {'Status':'Vazio'}, 'Meio Campo 1':{'Status':'Vazio'},
+                        'Meio-Campo 2': {'Status':'Vazio'}, 'Meio-Campo 3': {'Status':'Vazio'}, 'Meio-Campo 4': {'Status':'Vazio'},
+                        'Atacante Direito': {'Status':'Vazio'}, 'Atacante Esquerdo': {'Status':'Vazio'}}
+
+    for posicao_vazia in seu_time_titular.keys():
+        mostrar_time(seu_time)
+        print('-'*100)
+        jogador_titular = input(f'Digite o nome do jogador para a posicao {posicao_vazia}: ')
+
+        for posicao in seu_time:  # Dicionario de posicao dentro da lista do seu_time = posicao
+            for key, value in posicao.items():
+                for jogador in value:
+                    if jogador_titular in jogador.values():
+                        seu_time_titular[posicao_vazia] = jogador  #Arrumar essa linha
+
+
+        print('TIME TITULAR')
+        print('-' * 150)
+        print(f'{"Jogadores":>20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')
+        print('-' * 150)
+
+        for item,value in seu_time_titular.items():
+            for values in value.values():
+                print(f'{values:>20}',end = '')
+            print()
+
+
+    return seu_time_titular
+
 
 
 corinthans = list()
@@ -34,8 +78,8 @@ flamengo = list()
 flamengo.append(jogadores_flamengo)
 
 seu_time = int(input('Escolha um time: [1] - Corinthans / [2] - Flamengo: '))
-seu_time_titular = list()
-time_pc_titular = list()
+seu_time_titular = dict()
+time_pc_titular = dict()
 
 if seu_time == 1:
     seu_time = corinthans
@@ -52,44 +96,12 @@ while True:
 
     if ver == 1:
 
-        print('-' * 150)
-        print(f'{"Jogadores":<20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')
-        print('-' * 150)
-
-        for posicao in seu_time: #Dicionario de posicao dentro da lista do seu_time = posicao
-            for key, value in posicao.items():
-                for jogador in value:
-                    for caracteristica, valor in jogador.items():
-                        print(f'{valor:>20}', end='')
-                    print()
-
-
+        mostrar_time(seu_time)
 
     elif ver == 2:
 
         while True:
-
-            titular = input('Digite a posicao do jogador para escolher para o time titular: ')
-
-            if titular in seu_time[0]:
-                print('-' * 150)
-                print(f'{"Jogadores":<20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')
-                print('-' * 150)
-
-                for posicao in seu_time:  # Dicionario de posicao dentro da lista do seu_time = posicao
-                    for key, value in posicao.items():
-                        for jogador in value:
-                            if titular in jogador.values():
-                                for caracteristica, valor in jogador.items():
-                                    print(f'{valor:>20}', end='')
-                                print()
-
-
-
-
-
-
-
+            escolhendo_posicao(seu_time)
 
 
 
