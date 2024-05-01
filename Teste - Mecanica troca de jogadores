@@ -41,6 +41,12 @@ def mostrar_time(seu_time):
 
 def escolhendo_posicao(seu_time):
 
+    jogadores_time = list()
+    for posicao in seu_time:
+        for key,value in posicao.items():
+            for jogador in value:
+                jogadores_time.append(jogador['Nome'])
+
     seu_time_titular = {'Goleiro': {'Status':'Vazio'}, 'Zagueiro Esquerdo': {'Status':'Vazio'}, 'Zagueiro Direito': {'Status':'Vazio'},
                         'Lateral Esquerdo': {'Status':'Vazio'}, 'Lateral Direito': {'Status':'Vazio'}, 'Meio Campo 1':{'Status':'Vazio'},
                         'Meio-Campo 2': {'Status':'Vazio'}, 'Meio-Campo 3': {'Status':'Vazio'}, 'Meio-Campo 4': {'Status':'Vazio'},
@@ -49,24 +55,32 @@ def escolhendo_posicao(seu_time):
     for posicao_vazia in seu_time_titular.keys():
         mostrar_time(seu_time)
         print('-'*100)
-        jogador_titular = input(f'Digite o nome do jogador para a posicao {posicao_vazia}: ')
 
-        for posicao in seu_time:  # Dicionario de posicao dentro da lista do seu_time = posicao
-            for key, value in posicao.items():
-                for jogador in value:
-                    if jogador_titular in jogador.values():
-                        seu_time_titular[posicao_vazia] = jogador  #Arrumar essa linha
+        while True:
+            jogador_titular = input(f'Digite o nome do jogador para a posicao {posicao_vazia}: ')
+            print('-'*100)
+
+            if jogador_titular in jogadores_time:
+
+                for posicao in seu_time:
+                    for key, value in posicao.items():
+                        for jogador in value:
+                            if jogador_titular in jogador.values():
+                                seu_time_titular[posicao_vazia] = jogador
 
 
-        print('TIME TITULAR')
-        print('-' * 150)
-        print(f'{"Jogadores":>20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')
-        print('-' * 150)
+                print('TIME TITULAR')
+                print('-' * 150)
+                print(f'{"Jogadores":>20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')
+                print('-' * 150)
 
-        for item,value in seu_time_titular.items():
-            for values in value.values():
-                print(f'{values:>20}',end = '')
-            print()
+                for item,value in seu_time_titular.items():
+                    for values in value.values():
+                        print(f'{values:>20}',end = '')
+                    print()
+                break
+            else:
+                print('Digite um nome valido.')
 
 
     return seu_time_titular
@@ -102,6 +116,16 @@ while True:
 
         while True:
             escolhendo_posicao(seu_time)
+
+
+
+
+
+
+
+
+
+
 
 
 
