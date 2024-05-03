@@ -41,17 +41,17 @@ def escolha_esquema():
         else:
             print('Digite um numero de 1 a 4.')
 
-
 #Funcao para definir esquemas taticos:
 def esquemas_taticos(esquema_escolhido):
 
     seu_time_titular = dict()
 
+
     if esquema_escolhido == 1:
         seu_time_titular = {'Goleiro': {'Status': 'Vazio'}, 'Zagueiro Esquerdo': {'Status': 'Vazio'},
                             'Zagueiro Direito': {'Status': 'Vazio'},
                             'Lateral Esquerdo': {'Status': 'Vazio'}, 'Lateral Direito': {'Status': 'Vazio'},
-                            'Meio Campo 1': {'Status': 'Vazio'},
+                            'Meio-Campo 1': {'Status': 'Vazio'},
                             'Meio-Campo 2': {'Status': 'Vazio'}, 'Meio-Campo 3': {'Status': 'Vazio'},
                             'Meio-Campo 4': {'Status': 'Vazio'},
                             'Atacante Direito': {'Status': 'Vazio'}, 'Atacante Esquerdo': {'Status': 'Vazio'}}
@@ -172,6 +172,54 @@ def escolhendo_posicao(seu_time):
 
     return seu_time_titular
 
+def escolha_automatica(seu_time):
+
+    esquema_escolhido = escolha_esquema()
+    seu_time_titular = esquemas_taticos(esquema_escolhido)
+
+    # Incluindo o nome dos jogadores do time em uma lista para utilizar como validacao futuramente no codigo
+    posicoes_preenchidas = list()
+    jogadores_time = list()
+
+
+        # Colocando o dicionario do jogador dentro do time titular:
+
+
+    for posicao in seu_time:
+        for key, value in posicao.items():
+            for jogador in value:
+                #Selecionando jogador da posicao correta para inserir:
+                for posicao_vazia in seu_time_titular.keys():
+                    if jogador['Posicao'] in posicao_vazia and jogador['Nome'] not in jogadores_time and posicao_vazia not in posicoes_preenchidas:
+                        seu_time_titular[posicao_vazia] = jogador
+                        #Colocando o jogador que ja esta no time em uma lista para nao repetir:
+                        jogadores_time.append(jogador['Nome'])
+                        posicoes_preenchidas.append((posicao_vazia))
+
+
+
+
+
+
+
+
+
+    return seu_time_titular
+
+def mostrando_time_titular(seu_time_titular):
+    # Printando o time titular a cada entrada:
+    print('TIME TITULAR')
+    print('-' * 150)
+    print(
+        f'{"Posicao no Esquema":<20}{"Jogadores":>20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')
+    print('-' * 150)
+
+    for item, value in seu_time_titular.items():
+        print(f'{item:<20}', end='')
+        for key, values in value.items():
+            print(f'{values:>20}', end='')
+        print()
+
 
 corinthans = list()
 flamengo = list()
@@ -192,7 +240,7 @@ if seu_time == 2:
 
 while True:
 
-    ver = int(input('[1] - Ver seu time / [2] - Escolher time titular\n: '))
+    ver = int(input('[1] - Ver seu time / [2] - Escolher time titular\n [3] - Escolha automatica: '))
 
     if ver == 1:
 
@@ -201,10 +249,25 @@ while True:
     elif ver == 2:
 
         while True:
-            escolhendo_posicao(seu_time)
+            time_titular = escolhendo_posicao(seu_time)
+            mostrando_time_titular(time_titular)
+            print('-'*100)
+            novamente = input('Deseja escolher novamente? [S] / [N]')
+
+            if novamente in 'Ss':
+                continue
+            elif novamente in 'Nn':
+                print('Time escolhido')
+
+    elif ver == 3:
+
+        time_titular = escolha_automatica(seu_time)
+        mostrando_time_titular(time_titular)
 
 
 
+    else:
+        print('Digite um valor valido.')
 
 
 
