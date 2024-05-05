@@ -195,6 +195,17 @@ def escolha_automatica(seu_time):
                         #Colocando o jogador que ja esta no time em uma lista para nao repetir:
                         jogadores_time.append(jogador['Nome'])
                         posicoes_preenchidas.append((posicao_vazia))
+                        
+    
+        #Loop para preencher posicoes que ficaram vazias:
+    for posicao_vazia,dicionario in seu_time_titular.items():
+        for keys,values in dicionario.items():
+            if values == ' Vazio':
+                for posicao in seu_time:
+                    for key, value in posicao.items():
+                        for jogador in value:
+                            if jogador['Nome'] not in jogadores_time and jogador['Posicao'] not in posicoes_preenchidas:
+                                seu_time_titular[posicao_vazia] = jogador
 
 
 
