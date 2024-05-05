@@ -172,6 +172,7 @@ def escolhendo_posicao(seu_time):
 
     return seu_time_titular
 
+#Funcao de escolha automatica do time titular
 def escolha_automatica(seu_time):
 
     esquema_escolhido = escolha_esquema()
@@ -205,10 +206,8 @@ def escolha_automatica(seu_time):
                                 seu_time_titular[posicao_vazia] = jogador
 
 
-
-
     return seu_time_titular
-
+#Funcao para mostrar o time titular:
 def mostrando_time_titular(seu_time_titular):
     # Printando o time titular a cada entrada:
     print('TIME TITULAR')
@@ -223,6 +222,7 @@ def mostrando_time_titular(seu_time_titular):
             print(f'{values:>20}', end='')
         print()
 
+#Funcao para escolher o time:
 def escolha_time(jogadores_flamengo):
 
     corinthans = list()
@@ -243,6 +243,7 @@ def escolha_time(jogadores_flamengo):
 
     return seu_time,seu_time_titular
 
+#Menu principal onde as outras funcoes sao chamadas:
 def menu_principal():
     seu_time,seu_time_titular = escolha_time(jogadores_flamengo)
     while True:
@@ -277,6 +278,20 @@ def menu_principal():
             print('Digite um valor valido.')
 
 
+#Funcao para substituicao de jogadores no time titular:
+def substituicoes(seu_time,seu_time_titular):
+
+    while True:
+        mostrando_time_titular(seu_time_titular)
+        substituir = str(input('Qual jogador deseja substituir?\n: '))
+
+        #Verificar se o jogdor eh valido atraves de uma lista:
+        jogador_novo = str(input('Qual jogador deseja colocar no lugar?'))
+
+           
+
+
+#Testes de funcionamento:
 time_titular,seu_time = menu_principal()
 
 while True:
@@ -291,15 +306,11 @@ while True:
         mostrando_time_titular(time_titular)
 
     elif acao == 3:
-        time_titular, seu_time = menu_principal()
+        substituicoes(seu_time,time_titular)
 
     elif acao == 4:
         print('Encerrando...')
         break
-
-
-
-
 
 
 
