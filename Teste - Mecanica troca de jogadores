@@ -182,9 +182,7 @@ def escolha_automatica(seu_time):
     jogadores_time = list()
 
 
-        # Colocando o dicionario do jogador dentro do time titular:
-
-
+    # Colocando o dicionario do jogador dentro do time titular:
     for posicao in seu_time:
         for key, value in posicao.items():
             for jogador in value:
@@ -195,9 +193,8 @@ def escolha_automatica(seu_time):
                         #Colocando o jogador que ja esta no time em uma lista para nao repetir:
                         jogadores_time.append(jogador['Nome'])
                         posicoes_preenchidas.append((posicao_vazia))
-                        
-    
-        #Loop para preencher posicoes que ficaram vazias:
+
+    #Loop para preencher posicoes que ficaram vazias:
     for posicao_vazia,dicionario in seu_time_titular.items():
         for keys,values in dicionario.items():
             if values == ' Vazio':
@@ -206,11 +203,6 @@ def escolha_automatica(seu_time):
                         for jogador in value:
                             if jogador['Nome'] not in jogadores_time and jogador['Posicao'] not in posicoes_preenchidas:
                                 seu_time_titular[posicao_vazia] = jogador
-
-
-
-
-
 
 
 
@@ -231,54 +223,79 @@ def mostrando_time_titular(seu_time_titular):
             print(f'{values:>20}', end='')
         print()
 
+def escolha_time(jogadores_flamengo):
 
-corinthans = list()
-flamengo = list()
-flamengo.append(jogadores_flamengo)
+    corinthans = list()
+    flamengo = list()
+    flamengo.append(jogadores_flamengo)
 
-seu_time = int(input('Escolha um time: [1] - Corinthans / [2] - Flamengo\n: '))
-seu_time_titular = dict()
-time_pc_titular = dict()
+    seu_time = int(input('Escolha um time: [1] - Corinthans / [2] - Flamengo\n: '))
+    seu_time_titular = dict()
+    time_pc_titular = dict()
 
-if seu_time == 1:
-    seu_time = corinthans
-    time_pc = flamengo
+    if seu_time == 1:
+        seu_time = corinthans
+        time_pc = flamengo
+
+    if seu_time == 2:
+        seu_time = flamengo
+        time_pc = corinthans
+
+    return seu_time,seu_time_titular
+
+def menu_principal():
+    seu_time,seu_time_titular = escolha_time(jogadores_flamengo)
+    while True:
+
+        ver = int(input('[1] - Ver seu time / [2] - Escolher time titular\n[3] - Escolha automatica: '))
+
+        if ver == 1:
+
+            mostrar_time(seu_time)
+
+        elif ver == 2:
+
+            while True:
+                time_titular = escolhendo_posicao(seu_time)
+                mostrando_time_titular(time_titular)
+                print('-'*100)
+                novamente = input('Deseja escolher novamente? [S] / [N]')
+
+                if novamente in 'Ss':
+                    continue
+                elif novamente in 'Nn':
+                    print('Time escolhido')
+                    return time_titular,seu_time
+
+        elif ver == 3:
+
+            time_titular = escolha_automatica(seu_time)
+            mostrando_time_titular(time_titular)
+            return time_titular,seu_time
+
+        else:
+            print('Digite um valor valido.')
 
 
-if seu_time == 2:
-    seu_time = flamengo
-    time_pc = corinthans
+time_titular,seu_time = menu_principal()
 
 while True:
+    print('-'*100)
+    print('MENU PRINCIPAL')
+    acao = int(input('[1] - Ver seu time completo\n[2] - Ver seu time titular\n[3] - Alterar time titular\n[4] - Sair\n: '))
 
-    ver = int(input('[1] - Ver seu time / [2] - Escolher time titular\n [3] - Escolha automatica: '))
-
-    if ver == 1:
-
+    if acao == 1:
         mostrar_time(seu_time)
 
-    elif ver == 2:
-
-        while True:
-            time_titular = escolhendo_posicao(seu_time)
-            mostrando_time_titular(time_titular)
-            print('-'*100)
-            novamente = input('Deseja escolher novamente? [S] / [N]')
-
-            if novamente in 'Ss':
-                continue
-            elif novamente in 'Nn':
-                print('Time escolhido')
-
-    elif ver == 3:
-
-        time_titular = escolha_automatica(seu_time)
+    elif acao == 2:
         mostrando_time_titular(time_titular)
 
+    elif acao == 3:
+        time_titular, seu_time = menu_principal()
 
-
-    else:
-        print('Digite um valor valido.')
+    elif acao == 4:
+        print('Encerrando...')
+        break
 
 
 
