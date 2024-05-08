@@ -453,6 +453,38 @@ while True:
 
 
 
+#BLOCO 4 - TESTES DE FUNCIONAMENTO DAS FUNCOES
+
+time_titular,seu_time = menu_principal()
+
+while True:
+    print('-'*100)
+    print('MENU PRINCIPAL')
+    acao = int(input('[1] - Ver seu time completo\n[2] - Ver seu time titular\n[3] - Alterar time titular\n[4] - Sair\n: '))
+
+    if acao == 1:
+        mostrar_time(seu_time)
+
+    elif acao == 2:
+        mostrando_time_titular(time_titular)
+
+    elif acao == 3:
+        time_titular = substituicoes(seu_time,time_titular)
+        mostrando_time_titular(time_titular)
+
+    elif acao == 4:
+        print('Encerrando...')
+        break
+
+
+
+
+
+
+
+
+
+
 
 
 
