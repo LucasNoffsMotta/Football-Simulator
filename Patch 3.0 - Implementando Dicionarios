@@ -1,105 +1,377 @@
-#Armazena todas as informacoes sobre os times
-
-def times():
-
-    #Dicionario por pais
-    #Cada time dentro do dicionario sera tambem um dicionario
-    #Dentro do dicionario de cada time terao alguns atributos: Estadio & Reputacao
-    #Dentro do dicionario de cada time tera uma lista com os jogadores - cada jogador sera um dicionario
-
-    times_brasil = dict()
-
-    jogadores_palmeiras = {
-        'Weverton':{'Posicao':'Goleiro','Força':85,'Idade':36,'Nacionalidade':'Brasil'},
-        'Marcos Rocha': {'Posicao': 'Lateral Direito', 'Forca': 80, 'Idade': 33, 'Nacionalidade': 'Brasil'},
-        'Felipe Melo': {'Posicao': 'Meio-Campo', 'Forca': 82, 'Idade': 38, 'Nacionalidade': 'Brasil'},
-        'Gustavo Gómez': {'Posicao': 'Zagueiro', 'Forca': 82, 'Idade': 28, 'Nacionalidade': 'Paraguai'},
-        'Matias Viña': {'Posicao': 'Lateral Esquerdo', 'Forca': 80, 'Idade': 24, 'Nacionalidade': 'Uruguai'},
-        'Danilo': {'Posicao': 'Meio-Campo', 'Forca': 80, 'Idade': 25, 'Nacionalidade': 'Brasil'},
-        'Zé Rafael': {'Posicao': 'Meio-Campo', 'Forca': 81, 'Idade': 28, 'Nacionalidade': 'Brasil'},
-        'Raphael Veiga': {'Posicao': 'Meio-Campo', 'Forca': 80, 'Idade': 26, 'Nacionalidade': 'Brasil'},
-        'Wesley': {'Posicao': 'Atacante', 'Forca': 80, 'Idade': 22, 'Nacionalidade': 'Brasil'},
-        'Rony': {'Posicao': 'Atacante', 'Forca': 82, 'Idade': 26, 'Nacionalidade': 'Brasil'},
-        'Deyverson': {'Posicao': 'Atacante', 'Forca': 79, 'Idade': 30, 'Nacionalidade': 'Brasil'}
-    }
-
-    jogadores_flamengo = {
-    'Diego Alves': {'Posicao': 'Goleiro', 'Forca': 84, 'Idade': 36, 'Nacionalidade': 'Brasil'},
-    'Maurício Isla': {'Posicao': 'Lateral Direito', 'Forca': 81, 'Idade': 33, 'Nacionalidade': 'Chile'},
-    'Gustavo Henrique': {'Posicao': 'Zagueiro', 'Forca': 78, 'Idade': 28, 'Nacionalidade': 'Brasil'},
-    'Bruno Viana': {'Posicao': 'Zagueiro', 'Forca': 77, 'Idade': 26, 'Nacionalidade': 'Portugal'},
-    'Filipe Luís': {'Posicao': 'Lateral Esquerdo', 'Forca': 82, 'Idade': 36, 'Nacionalidade': 'Brasil'},
-    'Willian Arão': {'Posicao': 'Meio-Campo', 'Forca': 80, 'Idade': 29, 'Nacionalidade': 'Brasil'},
-    'Gerson': {'Posicao': 'Meio-Campo', 'Forca': 83, 'Idade': 24, 'Nacionalidade': 'Brasil'},
-    'Everton Ribeiro': {'Posicao': 'Meio-Campo', 'Forca': 82, 'Idade': 32, 'Nacionalidade': 'Brasil'},
-    'Arrascaeta': {'Posicao': 'Meio-Campo', 'Forca': 84, 'Idade': 27, 'Nacionalidade': 'Uruguai'},
-    'Gabigol': {'Posicao': 'Atacante', 'Forca': 84, 'Idade': 25, 'Nacionalidade': 'Brasil'},
-    'Bruno Henrique': {'Posicao': 'Atacante', 'Forca': 83, 'Idade': 31, 'Nacionalidade': 'Brasil'}
+#Dicionario dos times (serao compactados em uma funcao apos os testes):
+jogadores_flamengo = {
+    'Goleiro': [
+        {'Nome': 'Diego Alves', 'Posicao':'Goleiro','Forca': 84, 'Idade': 36, 'Nacionalidade': 'Brasil'},
+        {'Nome': 'Hugo Souza', 'Posicao':'Goleiro','Forca': 75, 'Idade': 23, 'Nacionalidade': 'Brasil'}
+    ],
+    'Lateral Direito': [
+        {'Nome': 'Maurício Isla', 'Posicao':'Lateral Direito','Forca': 81, 'Idade': 33, 'Nacionalidade': 'Chile'},
+        {'Nome': 'Rodinei', 'Posicao':'Lateral Direito','Forca': 75, 'Idade': 29, 'Nacionalidade': 'Brasil'}
+    ],
+    'Zagueiro': [
+        {'Nome': 'Gustavo Henrique', 'Posicao':'Zagueiro','Forca': 78, 'Idade': 28, 'Nacionalidade': 'Brasil'},
+        {'Nome': 'Bruno Viana', 'Posicao':'Zagueiro','Forca': 77, 'Idade': 26, 'Nacionalidade': 'Portugal'},
+        {'Nome': 'Léo Pereira', 'Posicao':'Zagueiro','Forca': 75, 'Idade': 25, 'Nacionalidade': 'Brasil'}
+    ],
+    'Lateral Esquerdo': [
+        {'Nome': 'Filipe Luís', 'Posicao':'Lateral Esquerdo','Forca': 82, 'Idade': 36, 'Nacionalidade': 'Brasil'}
+    ],
+    'Meio-Campo': [
+        {'Nome': 'Willian Arão', 'Posicao':'Meio-Campo','Forca': 80, 'Idade': 29, 'Nacionalidade': 'Brasil'},
+        {'Nome': 'Gerson', 'Posicao':'Meio-Campo','Forca': 83, 'Idade': 24, 'Nacionalidade': 'Brasil'},
+        {'Nome': 'Everton Ribeiro', 'Posicao':'Meio-Campo','Forca': 82, 'Idade': 32, 'Nacionalidade': 'Brasil'},
+        {'Nome': 'Arrascaeta', 'Posicao':'Meio-Campo','Forca': 84, 'Idade': 27, 'Nacionalidade': 'Uruguai'}
+    ],
+    'Atacante': [
+        {'Nome': 'Gabigol', 'Posicao':'Atacante','Forca': 84, 'Idade': 25, 'Nacionalidade': 'Brasil'},
+        {'Nome': 'Bruno Henrique', 'Posicao':'Atacante','Forca': 83, 'Idade': 31, 'Nacionalidade': 'Brasil'}
+]
 }
 
-    jogadores_corinthians = {
-        'Cássio': {'Posicao': 'Goleiro', 'Forca': 82, 'Idade': 35, 'Nacionalidade': 'Brasil'},
-        'Fagner': {'Posicao': 'Lateral Direito', 'Forca': 80, 'Idade': 33, 'Nacionalidade': 'Brasil'},
-        'João Victor': {'Posicao': 'Zagueiro', 'Forca': 75, 'Idade': 23, 'Nacionalidade': 'Brasil'},
-        'Raul Gustavo': {'Posicao': 'Zagueiro', 'Forca': 74, 'Idade': 22, 'Nacionalidade': 'Brasil'},
-        'Fábio Santos': {'Posicao': 'Lateral Esquerdo', 'Forca': 76, 'Idade': 36, 'Nacionalidade': 'Brasil'},
-        'Gabriel': {'Posicao': 'Meio-Campo', 'Forca': 78, 'Idade': 29, 'Nacionalidade': 'Brasil'},
-        'Roni': {'Posicao': 'Meio-Campo', 'Forca': 76, 'Idade': 23, 'Nacionalidade': 'Brasil'},
-        'Vitinho': {'Posicao': 'Meio-Campo', 'Forca': 77, 'Idade': 24, 'Nacionalidade': 'Brasil'},
-        'Róger Guedes': {'Posicao': 'Atacante', 'Forca': 82, 'Idade': 24, 'Nacionalidade': 'Brasil'},
-        'Paulinho': {'Posicao': 'Atacante', 'Forca': 80, 'Idade': 23, 'Nacionalidade': 'Brasil'},
-        'Xavier': {'Posicao': 'Meio-Campo', 'Forca': 76, 'Idade': 23, 'Nacionalidade': 'Brasil'}
-    }
-
-
-
-    times_brasil = {
-        'Flamengo':{'estadio':'Maracana','capacidade':90000,'reputacao':'Continental','Jogadores':jogadores_flamengo},
-        'Corinthans':{'estadio':'Itaquerao','capacidade':60000,'reputacao':'Continental','Jogadores':jogadores_corinthians},
-        'Palmeiras':{'estadio':'Alianz Park','capacidade':70000,'reputacao':'Continental','Jogadores':jogadores_palmeiras}
-    }
-
-    return times_brasil
-
-times = times()
-seu_time = input('Digite o nome do seu time: ')
-
-def mostrando_time(times,p1):
-
-    #Menus dentro do time
+#Funcao para escolher esquemas taticos:
+def escolha_esquema():
 
     while True:
+        esquema_escolhido = int(input('Deseja utilizar qual esquema tatico?\n'
+                                      '[1]: 4-4-2\n[2]: 4-3-3\n[3]: 3-5-2\n[4]: 4-2-3-1\n: '))
 
-        ver = int(input('[1] - Jogadores / [2] - Gerenciamento do clube\n: '))
+        if esquema_escolhido > 0 and esquema_escolhido < 5:
+            return esquema_escolhido
+
+        else:
+            print('Digite um numero de 1 a 4.')
+
+#Funcao para definir esquemas taticos:
+def esquemas_taticos(esquema_escolhido):
+
+    seu_time_titular = dict()
+
+
+    if esquema_escolhido == 1:
+        seu_time_titular = {'Goleiro': {'Status': 'Vazio'}, 'Zagueiro Esquerdo': {'Status': 'Vazio'},
+                            'Zagueiro Direito': {'Status': 'Vazio'},
+                            'Lateral Esquerdo': {'Status': 'Vazio'}, 'Lateral Direito': {'Status': 'Vazio'},
+                            'Meio-Campo 1': {'Status': 'Vazio'},
+                            'Meio-Campo 2': {'Status': 'Vazio'}, 'Meio-Campo 3': {'Status': 'Vazio'},
+                            'Meio-Campo 4': {'Status': 'Vazio'},
+                            'Atacante Direito': {'Status': 'Vazio'}, 'Atacante Esquerdo': {'Status': 'Vazio'}}
+
+    elif esquema_escolhido == 2:
+        seu_time_titular = {
+            'Goleiro': {'Status': 'Vazio'},
+            'Zagueiro Esquerdo': {'Status': 'Vazio'},
+            'Zagueiro Central 1': {'Status': 'Vazio'},
+            'Zagueiro Central 2': {'Status': 'Vazio'},
+            'Zagueiro Direito': {'Status': 'Vazio'},
+            'Meio-Campo 1': {'Status': 'Vazio'},
+            'Meio-Campo 2': {'Status': 'Vazio'},
+            'Meio-Campo 3': {'Status': 'Vazio'},
+            'Atacante Direito': {'Status': 'Vazio'},
+            'Atacante Central': {'Status': 'Vazio'},
+            'Atacante Esquerdo': {'Status': 'Vazio'}
+        }
+
+    elif esquema_escolhido == 3:
+
+        seu_time_titular = {
+            'Goleiro': {'Status': 'Vazio'},
+            'Zagueiro Esquerdo': {'Status': 'Vazio'},
+            'Zagueiro Central 1': {'Status': 'Vazio'},
+            'Zagueiro Direito': {'Status': 'Vazio'},
+            'Meio-Campo Esquerdo': {'Status': 'Vazio'},
+            'Meio-Campo Central 1': {'Status': 'Vazio'},
+            'Meio-Campo Central 2': {'Status': 'Vazio'},
+            'Meio-Campo Central 3': {'Status': 'Vazio'},
+            'Meio-Campo Direito': {'Status': 'Vazio'},
+            'Atacante 1': {'Status': 'Vazio'},
+            'Atacante 2': {'Status': 'Vazio'}
+        }
+
+    elif esquema_escolhido == 4:
+
+        seu_time_titular = {
+            'Goleiro': {'Status': 'Vazio'},
+            'Zagueiro Esquerdo': {'Status': 'Vazio'},
+            'Zagueiro Central 1': {'Status': 'Vazio'},
+            'Zagueiro Central 2': {'Status': 'Vazio'},
+            'Zagueiro Direito': {'Status': 'Vazio'},
+            'Meio-Campo Defensivo 1': {'Status': 'Vazio'},
+            'Meio-Campo Defensivo 2': {'Status': 'Vazio'},
+            'Meio-Campo Central': {'Status': 'Vazio'},
+            'Meio-Campo Ofensivo': {'Status': 'Vazio'},
+            'Atacante': {'Status': 'Vazio'}
+        }
+
+    return seu_time_titular
+
+#Funcao para mostrar o time completo (tela inicial do jogo):
+def mostrar_time(seu_time):
+    print('-' * 150)
+    print(f'{"Jogadores":<20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')  #Primeira linha da tabela
+    print('-' * 150)
+
+    for posicao in seu_time:    #Loop para mostrar o time formatado em tabela
+        for key, value in posicao.items():
+            for jogador in value:
+                for caracteristica, valor in jogador.items():
+                    print(f'{valor:>20}', end='')
+                print()
+
+
+# Funcao que inclui o nome dos jogadores do time em uma lista para utilizar como validacao futuramente no codigo
+def lista_controle(seu_time):
+
+    jogadores_time = list()
+    for posicao in seu_time:
+        for key, value in posicao.items():
+            for jogador in value:
+                jogadores_time.append(jogador['Nome'])
+
+    return jogadores_time
+
+#Funcao para montar o time que ira jogar:
+def escolhendo_posicao(seu_time):
+
+    jogadores_time = lista_controle(seu_time)
+
+    #Formacao do time titular:
+    escolha_sistema = escolha_esquema()
+    seu_time_titular = esquemas_taticos(escolha_sistema)
+
+    #Loop para captar o jogador por posicao:
+    for posicao_vazia in seu_time_titular.keys():
+        mostrar_time(seu_time)
+        print('-'*100)
+
+        #Loop para validar a entrada do usuario e garantir uma entrada valida para a posicao:
+        while True:
+            jogador_titular = input(f'Digite o nome do jogador para a posicao {posicao_vazia}: ')
+            print('-'*100)
+
+            #Validando a entrada comparando com a lista de nomes dos jogadores do time:
+            if jogador_titular in jogadores_time:
+
+                #Colocando o dicionario do jogador dentro do time titular:
+                for posicao in seu_time:
+                    for key, value in posicao.items():
+                        for jogador in value:
+                            if jogador_titular in jogador.values():
+                                seu_time_titular[posicao_vazia] = jogador
+
+                #Removendo o jogador selecionado da lista de jogadores do time:
+                jogadores_time.remove(jogador_titular)
+
+                #Printando o time titular a cada entrada:
+                print('TIME TITULAR')
+                print('-' * 150)
+                print(f'{"Posicao no Esquema":<20}{"Jogadores":>20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')
+                print('-' * 150)
+
+                for item,value in seu_time_titular.items():
+                    print(f'{item:<20}',end = '')
+                    for key,values in value.items():
+                        print(f'{values:>20}',end = '')
+                    print()
+                break
+            else:
+                print('Digite um nome valido.')
+
+
+    return seu_time_titular
+
+#Funcao de escolha automatica do time titular
+def escolha_automatica(seu_time):
+
+    esquema_escolhido = escolha_esquema()
+    seu_time_titular = esquemas_taticos(esquema_escolhido)
+
+    # Incluindo o nome dos jogadores do time em uma lista para utilizar como validacao futuramente no codigo
+    posicoes_preenchidas = list()
+    jogadores_time = list()
+
+
+    # Colocando o dicionario do jogador dentro do time titular:
+    for posicao in seu_time:
+        for key, value in posicao.items():
+            for jogador in value:
+                #Selecionando jogador da posicao correta para inserir:
+                for posicao_vazia in seu_time_titular.keys():
+                    if jogador['Posicao'] in posicao_vazia and jogador['Nome'] not in jogadores_time and posicao_vazia not in posicoes_preenchidas:
+                        seu_time_titular[posicao_vazia] = jogador
+                        #Colocando o jogador que ja esta no time em uma lista para nao repetir:
+                        jogadores_time.append(jogador['Nome'])
+                        posicoes_preenchidas.append((posicao_vazia))
+
+    #Loop para preencher posicoes que ficaram vazias:
+    for posicao_vazia,dicionario in seu_time_titular.items():
+        for keys,values in dicionario.items():
+            if values == ' Vazio':
+                for posicao in seu_time:
+                    for key, value in posicao.items():
+                        for jogador in value:
+                            if jogador['Nome'] not in jogadores_time and jogador['Posicao'] not in posicoes_preenchidas:
+                                seu_time_titular[posicao_vazia] = jogador
+
+
+    return seu_time_titular
+#Funcao para mostrar o time titular:
+def mostrando_time_titular(seu_time_titular):
+    # Printando o time titular a cada entrada:
+    print('TIME TITULAR')
+    print('-' * 150)
+    print(
+        f'{"Posicao no Esquema":<20}{"Jogadores":>20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')
+    print('-' * 150)
+
+    for item, value in seu_time_titular.items():
+        print(f'{item:<20}', end='')
+        for key, values in value.items():
+            print(f'{values:>20}', end='')
+        print()
+
+#Funcao para escolher o time:
+def escolha_time(jogadores_flamengo):
+
+    corinthans = list()
+    flamengo = list()
+    flamengo.append(jogadores_flamengo)
+
+    seu_time = int(input('Escolha um time: [1] - Corinthans / [2] - Flamengo\n: '))
+    seu_time_titular = dict()
+    time_pc_titular = dict()
+
+    if seu_time == 1:
+        seu_time = corinthans
+        time_pc = flamengo
+
+    if seu_time == 2:
+        seu_time = flamengo
+        time_pc = corinthans
+
+    return seu_time,seu_time_titular
+
+#Menu principal onde as outras funcoes sao chamadas:
+def menu_principal():
+    seu_time,seu_time_titular = escolha_time(jogadores_flamengo)
+    while True:
+
+        ver = int(input('[1] - Ver seu time / [2] - Escolher time titular\n[3] - Escolha automatica: '))
 
         if ver == 1:
 
-            print('-'*150)
-            print(f'{p1}')
-            print('-' * 150)
-            print(f'{"Jogadores":<20} {"Posicao":>22} {"Forca":>22}{"Idade":>22}{"Nacionalidade":>22}')
-            print('-'*150)
-
-            for chave,valor in times[p1].items():
-
-                if chave == 'Jogadores':
-                    for jogador,caracteristica in valor.items():
-                        print(f'{jogador:<20}',end = '  -  ')
-                        for key,value in caracteristica.items():
-                            print(f'{value:>20}',end = ' ')
-                        print()
+            mostrar_time(seu_time)
 
         elif ver == 2:
-            print('-'*150)
-            print(f'{"Estadio":<30} {"Capacidade":^17}{"Reputacao":^27}')
-            print('-'*150)
-            print(f'{times[p1]['estadio']:<30}{times[p1]['capacidade']:^20}{times[p1]['reputacao']:^25}')
+
+            while True:
+                time_titular = escolhendo_posicao(seu_time)
+                mostrando_time_titular(time_titular)
+                print('-'*100)
+                novamente = input('Deseja escolher novamente? [S] / [N]')
+
+                if novamente in 'Ss':
+                    continue
+                elif novamente in 'Nn':
+                    print('Time escolhido')
+                    return time_titular,seu_time
+
+        elif ver == 3:
+
+            time_titular = escolha_automatica(seu_time)
+            mostrando_time_titular(time_titular)
+            return time_titular,seu_time
+
+        else:
+            print('Digite um valor valido.')
+
+
+#Funcao que isola e retorna como variavel o dicionario do jogador sendo retirado do time e o dic. do jogador sendo colocado no time:
+def sistema_subs(seu_time,seu_time_titular,jogador_novo,jogador_velho):
+
+    for posicao in seu_time:
+        for key, lista in posicao.items():
+            for jogador in lista:
+                if jogador_novo == jogador['Nome']:
+                    jogador_novo = jogador
+
+    for pos, jog in seu_time_titular.items():
+        if jogador_velho == jog['Nome']:
+            jogador_velho = jog
+
+
+    return jogador_novo,jogador_velho
+
+#Funcao que realiza a substituicao utilizando como parametro o sistema de substituicao:
+def realiza_subs(seu_time_titular,jogador_novo,jogador_velho):
+
+    for key,jogador in seu_time_titular.items():
+        if jogador['Nome'] == jogador_velho['Nome']:
+            seu_time_titular[key] = jogador_novo
+
+    return seu_time_titular
+
+
+#Funcao para menu de substituicao de jogadores no time titular:
+def substituicoes(seu_time,seu_time_titular):
+
+    # Incluindo o nome dos jogadores do time em uma lista para utilizar como validacao futuramente no codigo
+
+    lista_time = lista_controle(seu_time)
+
+    while True:
+        substituir = str(input('Qual jogador deseja substituir?\n: '))
+
+        if substituir in lista_time:
+
+            while True:
+                escolha = int(input(f'[1] - Escolher substituto para {substituir}\n[2] - Voltar\n: '))
+
+                if escolha == 1:
+
+                    while True:
+                        mostrar_time(seu_time)
+                        substituto = str(input('Nome do substituto: '))
+
+                        if substituto in lista_time:
+                            jogador_novo, jogador_velho = sistema_subs(seu_time,seu_time_titular,substituto,substituir)
+                            seu_time_titular = realiza_subs(seu_time_titular,jogador_novo,jogador_velho)
+                            mostrando_time_titular(seu_time_titular)
+                            return seu_time_titular
+
+
+                        else:
+                            print('Digite um nome valido.')
+
+
+                if escolha == 2:
+                    break
+
+                else:
+                    print('Digite um numero valido.')
+
+        else:
+            print('Digite um nome valido..')
 
 
 
+#Testes de funcionamento:
+time_titular,seu_time = menu_principal()
 
+while True:
+    print('-'*100)
+    print('MENU PRINCIPAL')
+    acao = int(input('[1] - Ver seu time completo\n[2] - Ver seu time titular\n[3] - Alterar time titular\n[4] - Sair\n: '))
 
-mostrando_time(times,seu_time)
+    if acao == 1:
+        mostrar_time(seu_time)
 
+    elif acao == 2:
+        mostrando_time_titular(time_titular)
 
+    elif acao == 3:
+        time_titular = substituicoes(seu_time,time_titular)
+        mostrando_time_titular(time_titular)
 
+    elif acao == 4:
+        print('Encerrando...')
+        break
