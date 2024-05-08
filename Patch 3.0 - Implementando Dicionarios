@@ -38,7 +38,7 @@ def escolha_time(jogadores_flamengo):
     flamengo = list()
     flamengo.append(jogadores_flamengo)
 
-    seu_time = int(input('Escolha um time: [1] - Corinthans / [2] - Flamengo\n: '))
+    seu_time = int(input('Escolha um time:\n[1] - (Corinthans - Nao disponivel)\n[2] - Flamengo\n: '))
     seu_time_titular = dict()
     time_pc_titular = dict()
 
@@ -244,5 +244,223 @@ def mostrando_time_titular(seu_time_titular):
         for key, values in value.items():
             print(f'{values:>20}', end='')
         print()
+
+
+#Funcao para mostrar o time reserva:
+def mostrar_reservas(seu_time,seu_time_titular):
+    titulares = lista_controle_titulares(seu_time_titular)
+    todos = lista_controle(seu_time)
+
+    print('-' * 150)
+    print(
+        f'{"Jogadores":<20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')  # Primeira linha da tabela
+    print('-' * 150)
+
+    for posicao in seu_time:  # Loop para mostrar o time formatado em tabela
+        for key, value in posicao.items():
+            for jogador in value:
+                if jogador['Nome'] not in titulares:
+                    for caracteristica, valor in jogador.items():
+                        print(f'{valor:>20}', end='')
+                    print()
+
+
+#BLOCO 3 - INTERACOES COM USUARIO
+
+#Menu principal onde as outras funcoes sao chamadas:
+def menu_principal():
+    seu_time,seu_time_titular = escolha_time(jogadores_flamengo)
+    while True:
+
+        ver = int(input('[1] - Ver seu time\n[2] - Escolher time titular\n[3] - Escolha automatica\n: '))
+
+        if ver == 1:
+
+            mostrar_time(seu_time)
+
+        elif ver == 2:
+
+            while True:
+                time_titular = escolhendo_posicao(seu_time)
+                mostrando_time_titular(time_titular)
+                print('-'*100)
+                novamente = input('Deseja escolher novamente? [S] / [N]')
+
+                if novamente in 'Ss':
+                    continue
+                elif novamente in 'Nn':
+                    print('Time escolhido')
+                    return time_titular,seu_time
+
+        elif ver == 3:
+
+            time_titular = escolha_automatica(seu_time)
+            mostrando_time_titular(time_titular)
+            return time_titular,seu_time
+
+        else:
+            print('Digite um valor valido.')
+
+
+#Funcao para escolher esquemas taticos:
+def escolha_esquema():
+
+    while True:
+        esquema_escolhido = int(input('Deseja utilizar qual esquema tatico?\n'
+                                      '[1]: 4-4-2\n[2]: 4-3-3\n[3]: 3-5-2\n[4]: 4-2-3-1\n: '))
+
+        if esquema_escolhido > 0 and esquema_escolhido < 5:
+            return esquema_escolhido
+
+        else:
+            print('Digite um numero de 1 a 4.')
+
+
+#Funcao para montar o time que ira jogar:
+def escolhendo_posicao(seu_time):
+
+    jogadores_time = lista_controle(seu_time)
+
+    #Formacao do time titular:
+    escolha_sistema = escolha_esquema()
+    seu_time_titular = esquemas_taticos(escolha_sistema)
+
+    #Loop para captar o jogador por posicao:
+    for posicao_vazia in seu_time_titular.keys():
+        mostrar_time(seu_time)
+        print('-'*100)
+
+        #Loop para validar a entrada do usuario e garantir uma entrada valida para a posicao:
+        while True:
+            jogador_titular = input(f'Digite o nome do jogador para a posicao {posicao_vazia}: ')
+            print('-'*100)
+
+            #Validando a entrada comparando com a lista de nomes dos jogadores do time:
+            if jogador_titular in jogadores_time:
+
+                #Colocando o dicionario do jogador dentro do time titular:
+                for posicao in seu_time:
+                    for key, value in posicao.items():
+                        for jogador in value:
+                            if jogador_titular in jogador.values():
+                                seu_time_titular[posicao_vazia] = jogador
+
+                #Removendo o jogador selecionado da lista de jogadores do time:
+                jogadores_time.remove(jogador_titular)
+
+                #Printando o time titular a cada entrada:
+                print('TIME TITULAR')
+                print('-' * 150)
+                print(f'{"Posicao no Esquema":<20}{"Jogadores":>20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')
+                print('-' * 150)
+
+                for item,value in seu_time_titular.items():
+                    print(f'{item:<20}',end = '')
+                    for key,values in value.items():
+                        print(f'{values:>20}',end = '')
+                    print()
+                break
+            else:
+                print('Digite um nome valido.')
+
+
+    return seu_time_titular
+
+
+#Funcao para menu de substituicao de jogadores no time titular:
+def substituicoes(seu_time,seu_time_titular):
+
+    # Incluindo o nome dos jogadores do time em listas para utilizar como validacao futuramente no codigo
+    lista_time = lista_controle(seu_time)
+    lista_titulares = lista_controle_titulares(seu_time_titular)
+
+    while True:
+        substituir = str(input('Qual jogador deseja substituir?\n: '))
+
+        if substituir in lista_time:
+
+            while True:
+                escolha = int(input(f'[1] - Escolher substituto para {substituir}\n[2] - Voltar\n: '))
+
+                if escolha == 1:
+
+                    while True:
+                        mostrar_time(seu_time)
+                        print('-_-'*200)
+                        print('LISTA DE RESERVAS')
+                        mostrar_reservas(seu_time,seu_time_titular)
+                        substituto = str(input('Nome do substituto: '))
+
+                        if substituto in lista_time and substituto not in lista_titulares:
+                            jogador_novo, jogador_velho = sistema_subs(seu_time,seu_time_titular,substituto,substituir)
+                            seu_time_titular = realiza_subs(seu_time_titular,jogador_novo,jogador_velho)
+                            mostrando_time_titular(seu_time_titular)
+                            return seu_time_titular
+
+
+                        else:
+                            print('Digite um nome valido.')
+
+
+                if escolha == 2:
+                    break
+
+                else:
+                    print('Digite um numero valido.')
+
+        else:
+            print('Digite um nome valido..')
+
+
+
+
+
+
+
+
+
+
+
+#BLOCO 4 - TESTES DE FUNCIONAMENTO DAS FUNCOES
+
+time_titular,seu_time = menu_principal()
+
+while True:
+    print('-'*100)
+    print('MENU PRINCIPAL')
+    acao = int(input('[1] - Ver seu time completo\n[2] - Ver seu time titular\n[3] - Alterar time titular\n[4] - Sair\n: '))
+
+    if acao == 1:
+        mostrar_time(seu_time)
+
+    elif acao == 2:
+        mostrando_time_titular(time_titular)
+
+    elif acao == 3:
+        time_titular = substituicoes(seu_time,time_titular)
+        mostrando_time_titular(time_titular)
+
+    elif acao == 4:
+        print('Encerrando...')
+        break
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
