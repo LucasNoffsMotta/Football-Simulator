@@ -64,7 +64,7 @@ def escolha_time(jogadores_flamengo):
 
 #BLOCO 2 - UTILIDADES
 
-#Funcao para definir esquemas taticos:
+#Armazena e define esquemas taticos:
 def esquemas_taticos(esquema_escolhido):
 
     seu_time_titular = dict()
@@ -265,6 +265,27 @@ def mostrar_reservas(seu_time,seu_time_titular):
                     print()
 
 
+#Funcao para isolar o atributo da forca do time:
+def forca_time(seu_time_titular):
+
+    total = 0
+
+    for jogador in seu_time_titular.values():
+        total += jogador['Forca']
+
+    return total
+
+def mostra_forca(total_forca):
+    print(f'{total_forca}')
+
+
+
+
+
+
+
+
+
 #BLOCO 3 - INTERACOES COM USUARIO
 
 #Menu principal onde as outras funcoes sao chamadas:
@@ -424,6 +445,8 @@ def substituicoes(seu_time,seu_time_titular):
 #BLOCO 4 - TESTES DE FUNCIONAMENTO DAS FUNCOES
 
 time_titular,seu_time = menu_principal()
+forca = forca_time(time_titular)
+mostra_forca(forca)
 
 while True:
     print('-'*100)
@@ -440,41 +463,12 @@ while True:
         time_titular = substituicoes(seu_time,time_titular)
         mostrando_time_titular(time_titular)
 
-    elif acao == 4:
-        print('Encerrando...')
-        break
-
-
-
-
-
-
-
-
-
-
-#BLOCO 4 - TESTES DE FUNCIONAMENTO DAS FUNCOES
-
-time_titular,seu_time = menu_principal()
-
-while True:
-    print('-'*100)
-    print('MENU PRINCIPAL')
-    acao = int(input('[1] - Ver seu time completo\n[2] - Ver seu time titular\n[3] - Alterar time titular\n[4] - Sair\n: '))
-
-    if acao == 1:
-        mostrar_time(seu_time)
-
-    elif acao == 2:
-        mostrando_time_titular(time_titular)
-
-    elif acao == 3:
-        time_titular = substituicoes(seu_time,time_titular)
-        mostrando_time_titular(time_titular)
 
     elif acao == 4:
         print('Encerrando...')
         break
+
+
 
 
 
