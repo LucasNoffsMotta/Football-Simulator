@@ -252,8 +252,8 @@ def mostrar_reservas(seu_time,seu_time_titular):
     todos = lista_controle(seu_time)
 
     print('-' * 150)
-    print(
-        f'{"Jogadores":<20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')  # Primeira linha da tabela
+    print(F'{"BANCO DE RESERVAS":^5}')
+    print(f'{"Jogadores":<20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')  # Primeira linha da tabela
     print('-' * 150)
 
     for posicao in seu_time:  # Loop para mostrar o time formatado em tabela
@@ -298,6 +298,7 @@ def menu_principal():
         if ver == 1:
 
             mostrar_time(seu_time)
+
 
         elif ver == 2:
 
@@ -446,20 +447,25 @@ def substituicoes(seu_time,seu_time_titular):
 
 time_titular,seu_time = menu_principal()
 forca = forca_time(time_titular)
+mostrar_reservas(seu_time,time_titular)
 mostra_forca(forca)
 
 while True:
     print('-'*100)
     print('MENU PRINCIPAL')
-    acao = int(input('[1] - Ver seu time completo\n[2] - Ver seu time titular\n[3] - Alterar time titular\n[4] - Sair\n: '))
+    acao = int(input('[1] - Ver seu time completo\n[2] - Ver seu time titular\n[3] - Substituir\n[4] - Sair\n: '))
 
     if acao == 1:
         mostrar_time(seu_time)
 
+
     elif acao == 2:
         mostrando_time_titular(time_titular)
+        mostrar_reservas(seu_time, time_titular)
 
     elif acao == 3:
+        mostrando_time_titular(time_titular)
+        mostrar_reservas(seu_time,time_titular)
         time_titular = substituicoes(seu_time,time_titular)
         mostrando_time_titular(time_titular)
 
@@ -467,6 +473,11 @@ while True:
     elif acao == 4:
         print('Encerrando...')
         break
+
+
+
+
+
 
 
 
