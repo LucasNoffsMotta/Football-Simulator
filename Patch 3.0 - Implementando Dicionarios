@@ -131,7 +131,7 @@ def esquemas_taticos(esquema_escolhido):
 
 #Funcao de escolha automatica do time titular de acrodo com o esquema tatico:
 def escolha_automatica(seu_time):
-    
+
     #Chamando funcoes para escolha do esquema:
     esquema_escolhido = escolha_esquema()
     seu_time_titular = esquemas_taticos(esquema_escolhido)
@@ -468,7 +468,8 @@ mostra_forca(forca)
 while True:
     print('-'*100)
     print('MENU PRINCIPAL')
-    acao = int(input('[1] - Ver seu time completo\n[2] - Ver seu time titular\n[3] - Substituir\n[4] - Sair\n: '))
+    acao = int(input('[1] - Ver seu time completo\n[2] - Ver seu time titular\n[3] - Substituir\n'
+                     '[4] - Escolher esquema novamente\n[5] - Sair\n: '))
 
     if acao == 1:
         mostrar_time(seu_time)
@@ -484,8 +485,14 @@ while True:
         time_titular = substituicoes(seu_time,time_titular)
         mostrando_time_titular(time_titular)
 
-
     elif acao == 4:
+        time_titular = escolha_automatica(seu_time)
+        mostrando_time_titular(time_titular)
+        forca = forca_time(time_titular)
+        mostrar_reservas(seu_time, time_titular)
+        mostra_forca(forca)
+
+    elif acao == 5:
         print('Encerrando...')
         break
 
