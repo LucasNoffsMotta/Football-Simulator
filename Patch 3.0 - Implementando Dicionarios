@@ -121,48 +121,61 @@ def esquemas_taticos(esquema_escolhido):
             'Meio-Campo Defensivo 1': {'Status': 'Vazio'},
             'Meio-Campo Defensivo 2': {'Status': 'Vazio'},
             'Meio-Campo Central': {'Status': 'Vazio'},
-            'Meio-Campo Ofensivo': {'Status': 'Vazio'},
+            'Meio-Campo Esquerdo': {'Status': 'Vazio'},
+            'Meio-Campo Direito ' : {'Status':'Vazio'},
             'Atacante': {'Status': 'Vazio'}
         }
 
     return seu_time_titular
 
 
-#Funcao de escolha automatica do time titular
+#Funcao de escolha automatica do time titular de acrodo com o esquema tatico:
 def escolha_automatica(seu_time):
-
+    
+    #Chamando funcoes para escolha do esquema:
     esquema_escolhido = escolha_esquema()
     seu_time_titular = esquemas_taticos(esquema_escolhido)
 
-    # Incluindo o nome dos jogadores do time em uma lista para utilizar como validacao futuramente no codigo
+
+    #Incluindo o nome dos jogadores do time em uma lista para utilizar como validacao futuramente no codigo
     posicoes_preenchidas = list()
     jogadores_time = list()
 
 
-    # Colocando o dicionario do jogador dentro do time titular:
+    #Colocando o dicionario do jogador dentro do time titular:
     for posicao in seu_time:
         for key, value in posicao.items():
             for jogador in value:
                 #Selecionando jogador da posicao correta para inserir:
                 for posicao_vazia in seu_time_titular.keys():
                     if jogador['Posicao'] in posicao_vazia and jogador['Nome'] not in jogadores_time and posicao_vazia not in posicoes_preenchidas:
-                        seu_time_titular[posicao_vazia] = jogador
+                        seu_time_titular[posicao_vazia] = jogador.copy()
                         #Colocando o jogador que ja esta no time em uma lista para nao repetir:
                         jogadores_time.append(jogador['Nome'])
                         posicoes_preenchidas.append((posicao_vazia))
 
-    #Loop para preencher posicoes que ficaram vazias:
-    for posicao_vazia,dicionario in seu_time_titular.items():
-        for keys,values in dicionario.items():
-            if values == ' Vazio':
-                for posicao in seu_time:
-                    for key, value in posicao.items():
-                        for jogador in value:
-                            if jogador['Nome'] not in jogadores_time and jogador['Posicao'] not in posicoes_preenchidas:
-                                seu_time_titular[posicao_vazia] = jogador
+
+    #Loop para preencher posicoes que ficaram vazias, se possivel:
+    for pos in seu_time:
+        for key2,value2 in pos.items():
+            for jog in value2:
+                #Analisando o jogador para inserir nas posicoes que faltam:
+                for posicao_ainda_vazia in seu_time_titular.keys():
+                    if jog['Posicao'] != 'Goleiro' and jog['Posicao'] not in posicao_ainda_vazia and jog['Nome'] not in jogadores_time and posicao_ainda_vazia not in posicoes_preenchidas:
+                        seu_time_titular[posicao_ainda_vazia] = jog.copy()
+                        # Colocando o jogador que ja esta no time em uma lista para nao repetir:
+                        jogadores_time.append(jog['Nome'])
+                        posicoes_preenchidas.append((posicao_ainda_vazia))
 
 
     return seu_time_titular
+
+
+
+
+
+
+
 
 
 #Funcao para mostrar o time completo (tela inicial do jogo):
@@ -250,6 +263,7 @@ def mostrando_time_titular(seu_time_titular):
 def mostrar_reservas(seu_time,seu_time_titular):
     titulares = lista_controle_titulares(seu_time_titular)
     todos = lista_controle(seu_time)
+    banco_reservas = list()
 
     print('-' * 150)
     print(F'{"BANCO DE RESERVAS":^5}')
@@ -262,7 +276,10 @@ def mostrar_reservas(seu_time,seu_time_titular):
                 if jogador['Nome'] not in titulares:
                     for caracteristica, valor in jogador.items():
                         print(f'{valor:>20}', end='')
+                        banco_reservas.append(jogador)
                     print()
+
+    return banco_reservas
 
 
 #Funcao para isolar o atributo da forca do time:
@@ -277,7 +294,6 @@ def forca_time(seu_time_titular):
 
 def mostra_forca(total_forca):
     print(f'{total_forca}')
-
 
 
 
@@ -442,7 +458,6 @@ def substituicoes(seu_time,seu_time_titular):
 
 
 
-
 #BLOCO 4 - TESTES DE FUNCIONAMENTO DAS FUNCOES
 
 time_titular,seu_time = menu_principal()
@@ -473,11 +488,6 @@ while True:
     elif acao == 4:
         print('Encerrando...')
         break
-
-
-
-
-
 
 
 
