@@ -74,20 +74,46 @@ def escolha_time():
     flamengo = list()
     flamengo.append(jogadores_flamengo)
     corinthans.append(jogadores_corinthans)
+    nome_time = str()
 
-    seu_time = int(input('Escolha um time:\n[1] - Corinthans\n[2] - Flamengo\n: '))
-    seu_time_titular = dict()
-    time_pc_titular = dict()
 
-    if seu_time == 1:
-        seu_time = corinthans
-        time_pc = flamengo
+    while True:
+        jogo = int(input('[1] - Carregar jogo salvo\n[2] - Novo jogo\n: '))
 
-    if seu_time == 2:
-        seu_time = flamengo
-        time_pc = corinthans
+        #Carregando jogo salvo utilizando uma string:
+        if jogo == 1:
+            nome_time = load()
 
-    return seu_time,seu_time_titular
+            if nome_time == 'Corinthans':
+                seu_time = corinthans
+                return seu_time,nome_time
+
+            elif nome_time == 'Flamengo':
+                seu_time = flamengo
+                return seu_time,nome_time
+            else:
+                print('Nenhum arquivo salvo encontrado.')
+
+
+
+
+        #Iniciando novo jogo:
+        elif jogo == 2:
+
+            seu_time = int(input('Escolha um time:\n[1] - Corinthans\n[2] - Flamengo\n: '))
+
+
+            if seu_time == 1:
+                seu_time = corinthans
+                nome_time = 'Corinthans'
+
+
+            if seu_time == 2:
+                seu_time = flamengo
+                nome_time = 'Flamengo'
+
+
+            return seu_time,nome_time
 
 
 
@@ -336,10 +362,12 @@ def mostra_forca(total_forca):
 
 #Menu principal onde as outras funcoes sao chamadas:
 def menu_principal():
-    seu_time,seu_time_titular = escolha_time()
+
+    seu_time,nome_time = escolha_time()
+
     while True:
 
-        ver = int(input('[1] - Ver seu time\n[2] - Escolher time titular (um por um)\n[3] - Escolha automatica\n: '))
+        ver = int(input('[1] - Ver seu time\n[2] - Escolher time titular (um por um)\n[3] - Escolha automatica\n[4] - Salvar Jogo: '))
 
         if ver == 1:
 
@@ -365,6 +393,10 @@ def menu_principal():
             time_titular = escolha_automatica(seu_time)
             mostrando_time_titular(time_titular)
             return time_titular,seu_time
+
+        elif ver == 4:
+            salvar(nome_time)
+            print('Jogo salvo.')
 
         else:
             print('Digite um valor valido.')
@@ -491,8 +523,32 @@ def substituicoes(seu_time,seu_time_titular):
 
 
 
-#BLOCO 4 - TESTES DE FUNCIONAMENTO DAS FUNCOES
+#Bloco 4 - Save and Load
 
+#Save
+def salvar(nome_time):
+
+    save = open('save.txt','w')
+    save.write(nome_time)
+    save.close()
+    return save
+
+
+#Load
+def load():
+    with open("save.txt",'r') as file:
+        seu_time = file.read()
+    return seu_time
+
+
+
+
+
+
+
+
+
+#BLOCO 5 - TESTES DE FUNCIONAMENTO DAS FUNCOES
 time_titular,seu_time = menu_principal()
 forca = forca_time(time_titular)
 mostrar_reservas(seu_time,time_titular)
@@ -528,7 +584,6 @@ while True:
     elif acao == 5:
         print('Encerrando...')
         break
-
 
 
 
