@@ -1,44 +1,81 @@
 #BLOCO 1  - TIMES
 
 #Dicionario dos times (serao compactados em uma funcao apos os testes):
-jogadores_flamengo = {
-    'Goleiro': [
-        {'Nome': 'Diego Alves', 'Posicao':'Goleiro','Forca': 84, 'Idade': 36, 'Nacionalidade': 'Brasil'},
-        {'Nome': 'Hugo Souza', 'Posicao':'Goleiro','Forca': 75, 'Idade': 23, 'Nacionalidade': 'Brasil'}
-    ],
-    'Lateral Direito': [
-        {'Nome': 'Maurício Isla', 'Posicao':'Lateral Direito','Forca': 81, 'Idade': 33, 'Nacionalidade': 'Chile'},
-        {'Nome': 'Rodinei', 'Posicao':'Lateral Direito','Forca': 75, 'Idade': 29, 'Nacionalidade': 'Brasil'}
-    ],
-    'Zagueiro': [
-        {'Nome': 'Gustavo Henrique', 'Posicao':'Zagueiro','Forca': 78, 'Idade': 28, 'Nacionalidade': 'Brasil'},
-        {'Nome': 'Bruno Viana', 'Posicao':'Zagueiro','Forca': 77, 'Idade': 26, 'Nacionalidade': 'Portugal'},
-        {'Nome': 'Léo Pereira', 'Posicao':'Zagueiro','Forca': 75, 'Idade': 25, 'Nacionalidade': 'Brasil'}
-    ],
-    'Lateral Esquerdo': [
-        {'Nome': 'Filipe Luís', 'Posicao':'Lateral Esquerdo','Forca': 82, 'Idade': 36, 'Nacionalidade': 'Brasil'}
-    ],
-    'Meio-Campo': [
-        {'Nome': 'Willian Arão', 'Posicao':'Meio-Campo','Forca': 80, 'Idade': 29, 'Nacionalidade': 'Brasil'},
-        {'Nome': 'Gerson', 'Posicao':'Meio-Campo','Forca': 83, 'Idade': 24, 'Nacionalidade': 'Brasil'},
-        {'Nome': 'Everton Ribeiro', 'Posicao':'Meio-Campo','Forca': 82, 'Idade': 32, 'Nacionalidade': 'Brasil'},
-        {'Nome': 'Arrascaeta', 'Posicao':'Meio-Campo','Forca': 84, 'Idade': 27, 'Nacionalidade': 'Uruguai'}
-    ],
-    'Atacante': [
-        {'Nome': 'Gabigol', 'Posicao':'Atacante','Forca': 84, 'Idade': 25, 'Nacionalidade': 'Brasil'},
-        {'Nome': 'Bruno Henrique', 'Posicao':'Atacante','Forca': 83, 'Idade': 31, 'Nacionalidade': 'Brasil'}
-]
-}
+def times():
+    jogadores_flamengo = {
+        'Goleiro': [
+            {'Nome': 'Diego Alves', 'Posicao':'Goleiro','Forca': 84, 'Idade': 36, 'Nacionalidade': 'Brasil'},
+            {'Nome': 'Hugo Souza', 'Posicao':'Goleiro','Forca': 75, 'Idade': 23, 'Nacionalidade': 'Brasil'}
+        ],
+        'Lateral Direito': [
+            {'Nome': 'Maurício Isla', 'Posicao':'Lateral Direito','Forca': 81, 'Idade': 33, 'Nacionalidade': 'Chile'},
+            {'Nome': 'Rodinei', 'Posicao':'Lateral Direito','Forca': 75, 'Idade': 29, 'Nacionalidade': 'Brasil'}
+        ],
+        'Zagueiro': [
+            {'Nome': 'Gustavo Henrique', 'Posicao':'Zagueiro','Forca': 78, 'Idade': 28, 'Nacionalidade': 'Brasil'},
+            {'Nome': 'Bruno Viana', 'Posicao':'Zagueiro','Forca': 77, 'Idade': 26, 'Nacionalidade': 'Portugal'},
+            {'Nome': 'Léo Pereira', 'Posicao':'Zagueiro','Forca': 75, 'Idade': 25, 'Nacionalidade': 'Brasil'}
+        ],
+        'Lateral Esquerdo': [
+            {'Nome': 'Filipe Luís', 'Posicao':'Lateral Esquerdo','Forca': 82, 'Idade': 36, 'Nacionalidade': 'Brasil'}
+        ],
+        'Meio-Campo': [
+            {'Nome': 'Willian Arão', 'Posicao':'Meio-Campo','Forca': 80, 'Idade': 29, 'Nacionalidade': 'Brasil'},
+            {'Nome': 'Gerson', 'Posicao':'Meio-Campo','Forca': 83, 'Idade': 24, 'Nacionalidade': 'Brasil'},
+            {'Nome': 'Everton Ribeiro', 'Posicao':'Meio-Campo','Forca': 82, 'Idade': 32, 'Nacionalidade': 'Brasil'},
+            {'Nome': 'Arrascaeta', 'Posicao':'Meio-Campo','Forca': 84, 'Idade': 27, 'Nacionalidade': 'Uruguai'}
+        ],
+        'Atacante': [
+            {'Nome': 'Gabigol', 'Posicao':'Atacante','Forca': 84, 'Idade': 25, 'Nacionalidade': 'Brasil'},
+            {'Nome': 'Bruno Henrique', 'Posicao':'Atacante','Forca': 83, 'Idade': 31, 'Nacionalidade': 'Brasil'}
+    ]
+    }
+    jogadores_corinthians = {
+        'Goleiro': [
+            {'Nome': 'Cássio', 'Posicao':'Goleiro','Forca': 80, 'Idade': 34, 'Nacionalidade': 'Brasil'},
+            {'Nome': 'Matheus Donelli', 'Posicao':'Goleiro','Forca': 72, 'Idade': 20, 'Nacionalidade': 'Brasil'}
+        ],
+        'Lateral Direito': [
+            {'Nome': 'Fagner', 'Posicao':'Lateral Direito','Forca': 79, 'Idade': 32, 'Nacionalidade': 'Brasil'},
+            {'Nome': 'João Pedro', 'Posicao':'Lateral Direito','Forca': 72, 'Idade': 24, 'Nacionalidade': 'Brasil'}
+        ],
+        'Zagueiro': [
+            {'Nome': 'Gil', 'Posicao':'Zagueiro','Forca': 77, 'Idade': 34, 'Nacionalidade': 'Brasil'},
+            {'Nome': 'João Victor', 'Posicao':'Zagueiro','Forca': 74, 'Idade': 24, 'Nacionalidade': 'Brasil'},
+            {'Nome': 'Raul Gustavo', 'Posicao':'Zagueiro','Forca': 72, 'Idade': 22, 'Nacionalidade': 'Brasil'}
+        ],
+        'Lateral Esquerdo': [
+            {'Nome': 'Fábio Santos', 'Posicao':'Lateral Esquerdo','Forca': 76, 'Idade': 36, 'Nacionalidade': 'Brasil'},
+            {'Nome': 'Lucas Piton', 'Posicao':'Lateral Esquerdo','Forca': 72, 'Idade': 21, 'Nacionalidade': 'Brasil'}
+        ],
+        'Meio-Campo': [
+            {'Nome': 'Gabriel', 'Posicao':'Meio-Campo','Forca': 78, 'Idade': 24, 'Nacionalidade': 'Brasil'},
+            {'Nome': 'Roni', 'Posicao':'Meio-Campo','Forca': 73, 'Idade': 22, 'Nacionalidade': 'Brasil'},
+            {'Nome': 'Xavier', 'Posicao':'Meio-Campo','Forca': 74, 'Idade': 23, 'Nacionalidade': 'Brasil'},
+            {'Nome': 'Vitinho', 'Posicao':'Meio-Campo','Forca': 70, 'Idade': 23, 'Nacionalidade': 'Brasil'},
+            {'Nome': 'Matheus Araújo', 'Posicao':'Meio-Campo','Forca': 68, 'Idade': 21, 'Nacionalidade': 'Brasil'}
+        ],
+        'Atacante': [
+            {'Nome': 'Léo Natel', 'Posicao':'Atacante','Forca': 72, 'Idade': 24, 'Nacionalidade': 'Brasil'},
+            {'Nome': 'Jô', 'Posicao':'Atacante','Forca': 75, 'Idade': 35, 'Nacionalidade': 'Brasil'},
+            {'Nome': 'Felipe', 'Posicao':'Atacante','Forca': 70, 'Idade': 23, 'Nacionalidade': 'Brasil'},
+            {'Nome': 'Ruan Oliveira', 'Posicao':'Atacante','Forca': 68, 'Idade': 22, 'Nacionalidade': 'Brasil'}
+        ]
+    }
 
+    return jogadores_flamengo,jogadores_corinthians
 
 #Funcao para escolher o time:
-def escolha_time(jogadores_flamengo):
+def escolha_time():
+
+    jogadores_flamengo,jogadores_corinthans = times()
 
     corinthans = list()
     flamengo = list()
     flamengo.append(jogadores_flamengo)
+    corinthans.append(jogadores_corinthans)
 
-    seu_time = int(input('Escolha um time:\n[1] - (Corinthans - Nao disponivel)\n[2] - Flamengo\n: '))
+    seu_time = int(input('Escolha um time:\n[1] - Corinthans\n[2] - Flamengo\n: '))
     seu_time_titular = dict()
     time_pc_titular = dict()
 
@@ -171,13 +208,6 @@ def escolha_automatica(seu_time):
     return seu_time_titular
 
 
-
-
-
-
-
-
-
 #Funcao para mostrar o time completo (tela inicial do jogo):
 def mostrar_time(seu_time):
     print('-' * 150)
@@ -306,10 +336,10 @@ def mostra_forca(total_forca):
 
 #Menu principal onde as outras funcoes sao chamadas:
 def menu_principal():
-    seu_time,seu_time_titular = escolha_time(jogadores_flamengo)
+    seu_time,seu_time_titular = escolha_time()
     while True:
 
-        ver = int(input('[1] - Ver seu time\n[2] - Escolher time titular\n[3] - Escolha automatica\n: '))
+        ver = int(input('[1] - Ver seu time\n[2] - Escolher time titular (um por um)\n[3] - Escolha automatica\n: '))
 
         if ver == 1:
 
@@ -354,7 +384,7 @@ def escolha_esquema():
             print('Digite um numero de 1 a 4.')
 
 
-#Funcao para montar o time que ira jogar:
+#Funcao para montar o time que ira jogar, um por um:
 def escolhendo_posicao(seu_time):
 
     jogadores_time = lista_controle(seu_time)
@@ -386,18 +416,21 @@ def escolhendo_posicao(seu_time):
                 #Removendo o jogador selecionado da lista de jogadores do time:
                 jogadores_time.remove(jogador_titular)
 
-                #Printando o time titular a cada entrada:
+                # Printando o time titular a cada entrada:
                 print('TIME TITULAR')
                 print('-' * 150)
-                print(f'{"Posicao no Esquema":<20}{"Jogadores":>20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')
+                print(
+                    f'{"Posicao no Esquema":<20}{"Jogadores":>20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')
                 print('-' * 150)
 
-                for item,value in seu_time_titular.items():
-                    print(f'{item:<20}',end = '')
-                    for key,values in value.items():
-                        print(f'{values:>20}',end = '')
+                for item, value in seu_time_titular.items():
+                    print(f'{item:<20}', end='')
+                    for key, values in value.items():
+                        print(f'{values:>20}', end='')
                     print()
                 break
+
+
             else:
                 print('Digite um nome valido.')
 
@@ -495,6 +528,10 @@ while True:
     elif acao == 5:
         print('Encerrando...')
         break
+
+
+
+
 
 
 
