@@ -340,6 +340,7 @@ def mostrar_reservas(seu_time,seu_time_titular):
                         banco_reservas.append(jogador)
                     print()
     print(f'{cor["limpa"]}')
+
     return banco_reservas
 
 
@@ -485,10 +486,12 @@ def substituicoes(seu_time,seu_time_titular):
     while True:
         substituir = str(input('Qual jogador deseja substituir?\n: '))
 
-        if substituir in lista_time:
+        if substituir in lista_time and substituir in lista_titulares:
 
             while True:
                 escolha = int(input(f'[1] - Escolher substituto para {substituir}\n[2] - Voltar\n: '))
+
+
 
                 if escolha == 1:
 
@@ -504,6 +507,8 @@ def substituicoes(seu_time,seu_time_titular):
                             seu_time_titular = realiza_subs(seu_time_titular,jogador_novo,jogador_velho)
                             mostrando_time_titular(seu_time_titular)
                             return seu_time_titular
+
+
 
 
                         else:
@@ -589,6 +594,9 @@ while True:
     elif acao == 5:
         print('Encerrando...')
         break
+
+
+
 
 
 
