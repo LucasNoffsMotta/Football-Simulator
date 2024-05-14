@@ -1,10 +1,14 @@
+from Colors import cores
+
+cor = cores()
+
 #BLOCO 1  - TIMES
 
 #Dicionario dos times (serao compactados em uma funcao apos os testes):
 def times():
     jogadores_flamengo = {
         'Goleiro': [
-            {'Nome': 'Diego Alves', 'Posicao':'Goleiro','Forca': 84, 'Idade': 36, 'Nacionalidade': 'Brasil'},
+            {'Nome': 'Diego Alves', 'Posicao' : 'Goleiro','Forca': 84, 'Idade': 36, 'Nacionalidade': 'Brasil'},
             {'Nome': 'Hugo Souza', 'Posicao':'Goleiro','Forca': 75, 'Idade': 23, 'Nacionalidade': 'Brasil'}
         ],
         'Lateral Direito': [
@@ -236,15 +240,15 @@ def escolha_automatica(seu_time):
 
 #Funcao para mostrar o time completo (tela inicial do jogo):
 def mostrar_time(seu_time):
-    print('-' * 150)
-    print(f'{"Jogadores":<20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')  #Primeira linha da tabela
+    print(f'{cor["fundo_preto"]}{'-' * 150}')
+    print(f'{cor["fundo_preto"]}{cor["azul"]}{"Jogadores":<20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')  #Primeira linha da tabela
     print('-' * 150)
 
     for posicao in seu_time:    #Loop para mostrar o time formatado em tabela
         for key, value in posicao.items():
             for jogador in value:
                 for caracteristica, valor in jogador.items():
-                    print(f'{valor:>20}', end='')
+                    print(f'{cor["verde"]}{valor:>20}', end='')
                 print()
 
 
@@ -302,17 +306,18 @@ def realiza_subs(seu_time_titular,jogador_novo,jogador_velho):
 #Funcao para mostrar o time titular:
 def mostrando_time_titular(seu_time_titular):
     # Printando o time titular a cada entrada:
-    print('TIME TITULAR')
+    print(f'{cor["fundo_preto"]}{cor["amarelo"]}{cor["negrito"]}TIME TITULAR')
     print('-' * 150)
     print(
-        f'{"Posicao no Esquema":<20}{"Jogadores":>20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')
+        f'{cor["fundo_preto"]}{cor["amarelo"]}{"Posicao no Esquema":<20}{"Jogadores":>20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')
     print('-' * 150)
 
     for item, value in seu_time_titular.items():
-        print(f'{item:<20}', end='')
+        print(f'{cor["verde"]}{item:<20}', end='')
         for key, values in value.items():
-            print(f'{values:>20}', end='')
+            print(f'{cor["verde"]}{values:>20}', end='')
         print()
+    print(f'{cor["limpa"]}')
 
 
 #Funcao para mostrar o time reserva:
@@ -322,8 +327,8 @@ def mostrar_reservas(seu_time,seu_time_titular):
     banco_reservas = list()
 
     print('-' * 150)
-    print(F'{"BANCO DE RESERVAS":^5}')
-    print(f'{"Jogadores":<20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')  # Primeira linha da tabela
+    print(F'{cor["fundo_preto"]}{cor["vermelho"]}{"BANCO DE RESERVAS":^5}')
+    print(f'{cor["fundo_preto"]}{cor["vermelho"]}{"Jogadores":<20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')  # Primeira linha da tabela
     print('-' * 150)
 
     for posicao in seu_time:  # Loop para mostrar o time formatado em tabela
@@ -331,10 +336,10 @@ def mostrar_reservas(seu_time,seu_time_titular):
             for jogador in value:
                 if jogador['Nome'] not in titulares:
                     for caracteristica, valor in jogador.items():
-                        print(f'{valor:>20}', end='')
+                        print(f'{cor["fundo_preto"]}{cor["vermelho"]}{valor:>20}', end='')
                         banco_reservas.append(jogador)
                     print()
-
+    print(f'{cor["limpa"]}')
     return banco_reservas
 
 
@@ -366,8 +371,8 @@ def menu_principal():
     seu_time,nome_time = escolha_time()
 
     while True:
-
-        ver = int(input('[1] - Ver seu time\n[2] - Escolher time titular (um por um)\n[3] - Escolha automatica\n[4] - Salvar Jogo: '))
+        print(f'{cor["fundo_preto"]}{cor['roxo']}','-'*100)
+        ver = int(input(f'{cor["fundo_preto"]}{cor["roxo"]}[1] - Ver seu time\n[2] - Escolher time titular (um por um)\n[3] - Escolha automatica\n[4] - Salvar Jogo: '))
 
         if ver == 1:
 
@@ -380,7 +385,7 @@ def menu_principal():
                 time_titular = escolhendo_posicao(seu_time)
                 mostrando_time_titular(time_titular)
                 print('-'*100)
-                novamente = input('Deseja escolher novamente? [S] / [N]')
+                novamente = input(f'{cor["roxo"]}Deseja escolher novamente? [S] / [N]')
 
                 if novamente in 'Ss':
                     continue
@@ -556,7 +561,7 @@ mostra_forca(forca)
 
 while True:
     print('-'*100)
-    print('MENU PRINCIPAL')
+    print(f'{cor["fundo_preto"]}{cor["roxo"]}{"MENU PRINCIPAL"}')
     acao = int(input('[1] - Ver seu time completo\n[2] - Ver seu time titular\n[3] - Substituir\n'
                      '[4] - Escolher esquema novamente\n[5] - Sair\n: '))
 
@@ -584,6 +589,8 @@ while True:
     elif acao == 5:
         print('Encerrando...')
         break
+
+
 
 
 
