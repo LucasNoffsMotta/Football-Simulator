@@ -394,16 +394,13 @@ def mostra_forca(total_forca):
 def ajuste_forca(seu_time_titular):
 
     for pos,jog in seu_time_titular.items():
+        forca_original = jog['Forca']
         jog['fora_posicao'] = False
         if jog['Posicao'] not in pos:
-            jog['Forca'] -= jog['Forca'] - (jog['Forca'] - 20)
+            jog['Forca'] -= forca_original - (jog['Forca'] - 20)
             jog['fora_posicao'] = True
             if jog['Forca'] < 0:
                 jog['Forca'] = 0
-
-
-
-    return seu_time_titular
 
 
 
