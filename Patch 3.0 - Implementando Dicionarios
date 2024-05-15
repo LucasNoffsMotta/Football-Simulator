@@ -82,7 +82,7 @@ def escolha_time():
 
 
     while True:
-        jogo = int(input('[1] - Carregar jogo salvo\n[2] - Novo jogo\n: '))
+        jogo = int(input(f'{cor["fundo_preto"]}{cor["verde"]}[1] - Carregar jogo salvo\n[2] - Novo jogo\n: {cor["limpa"]}'))
 
         #Carregando jogo salvo utilizando uma string:
         if jogo == 1:
@@ -594,6 +594,11 @@ while True:
     elif acao == 5:
         print('Encerrando...')
         break
+
+
+
+
+
 
 
 
