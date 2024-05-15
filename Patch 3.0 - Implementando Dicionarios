@@ -2,6 +2,7 @@ from Colors import cores
 
 cor = cores()
 
+
 #BLOCO 1  - TIMES
 
 #Dicionario dos times (serao compactados em uma funcao apos os testes):
@@ -102,7 +103,7 @@ def escolha_time():
                         seu_time = flamengo
                         return seu_time,nome_time
                     else:
-                        print('Nenhum arquivo salvo encontrado.')
+                        print(f'{cor["fundo_preto"]}{cor["vermelho"]}Nenhum arquivo salvo encontrado.{cor["limpa"]}')
 
 
 
@@ -390,17 +391,21 @@ def mostra_forca(total_forca):
     print(f'{cor["fundo_preto"]}{cor["azul"]}Força do time: {total_forca}{cor["limpa"]}')
 
 
-
+#Funcao que ajusta a forca do time de acordo com a posicao dos jogadores:
 def ajuste_forca(seu_time_titular):
 
     for pos,jog in seu_time_titular.items():
         forca_original = jog['Forca']
         jog['fora_posicao'] = False
         if jog['Posicao'] not in pos:
-            jog['Forca'] -= forca_original - (jog['Forca'] - 20)
+            jog['Forca'] = forca_original - (jog['Forca'] - 20)
             jog['fora_posicao'] = True
             if jog['Forca'] < 0:
                 jog['Forca'] = 0
+
+
+
+    return seu_time_titular
 
 
 
@@ -439,13 +444,13 @@ def menu_principal():
                             continue
                         elif novamente in 'Nn':
                             print('Time escolhido')
-                            return time_titular,seu_time
+                            return time_titular,seu_time,nome_time
 
                 elif ver == 3:
 
                     time_titular = escolha_automatica(seu_time)
                     mostrando_time_titular(time_titular)
-                    return time_titular,seu_time
+                    return time_titular,seu_time,nome_time
 
                 elif ver == 4:
                     salvar(nome_time)
@@ -604,6 +609,68 @@ def load():
     with open("save.txt",'r') as file:
         seu_time = file.read()
     return seu_time
+
+
+
+
+
+
+
+
+
+#BLOCO 5 - TESTES DE FUNCIONAMENTO DAS FUNCOES
+time_titular,seu_time,nome_time = menu_principal()
+forca = forca_time(time_titular)
+mostrar_reservas(seu_time,time_titular)
+mostra_forca(forca)
+
+while True:
+    print('-'*100)
+    print(f'{cor["fundo_preto"]}{cor["verde"]}{"MENU PRINCIPAL"}')
+    escolha = str(input(f'[1] - {cor["roxo"]}Ver seu time completo\n{cor["verde"]}[2] - {cor["roxo"]}Ver seu time titular\n{cor["verde"]}[3] - {cor["roxo"]}Substituir\n'
+                     f'{cor["verde"]}[4] - {cor["roxo"]}Escolher esquema novamente\n{cor["verde"]}[5] -{cor["roxo"]} Salvar\n{cor["verde"]}[6] - {cor["roxo"]}Sair\n: {cor["limpa"]}'))
+
+    if escolha.isnumeric():
+        acao = int(escolha)
+
+        if 0 < acao < 7:
+
+            if acao == 1:
+                mostrar_time(seu_time)
+
+
+            elif acao == 2:
+                mostrando_time_titular(time_titular)
+                mostra_forca(forca)
+                mostrar_reservas(seu_time, time_titular)
+
+            elif acao == 3:
+                mostrando_time_titular(time_titular)
+                mostrar_reservas(seu_time,time_titular)
+                time_titular = substituicoes(seu_time,time_titular)
+                mostrando_time_titular(time_titular)
+
+            elif acao == 4:
+                time_titular = escolha_automatica(seu_time)
+                mostrando_time_titular(time_titular)
+                forca = forca_time(time_titular)
+                mostrar_reservas(seu_time, time_titular)
+                mostra_forca(forca)
+
+            elif acao == 5:
+                salvar(nome_time)
+                print(f'{cor["azul"]}Jogo salvo.{cor["limpa"]}')
+
+            elif acao == 6:
+                print('Encerrando...')
+                break
+
+            else:
+                print(f'{cor["fundo_preto"]}{cor["vermelho"]}Digite um numero valido.{cor["limpa"]}')
+
+    else:
+        print(f'{cor["fundo_preto"]}{cor["vermelho"]}Digite um numero valido.{cor["limpa"]}')
+
 
 
 
