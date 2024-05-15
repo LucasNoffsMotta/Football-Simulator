@@ -82,42 +82,64 @@ def escolha_time():
 
 
     while True:
-        jogo = int(input(f'{cor["fundo_preto"]}{cor["verde"]}[1] - Carregar jogo salvo\n[2] - Novo jogo\n: {cor["limpa"]}'))
+        escolha_menu = str(input(f'{cor["fundo_preto"]}{cor["verde"]}[1] - Carregar jogo salvo\n[2] - Novo jogo\n: {cor["limpa"]}'))
 
-        #Carregando jogo salvo utilizando uma string:
-        if jogo == 1:
-            nome_time = load()
+        if escolha_menu.isnumeric():
+            jogo = int(escolha_menu)
 
-            if nome_time == 'Corinthans':
-                seu_time = corinthans
-                return seu_time,nome_time
+            if 0 < jogo < 3:
 
-            elif nome_time == 'Flamengo':
-                seu_time = flamengo
-                return seu_time,nome_time
+
+                #Carregando jogo salvo utilizando uma string:
+                if jogo == 1:
+                    nome_time = load()
+
+                    if nome_time == 'Corinthans':
+                        seu_time = corinthans
+                        return seu_time,nome_time
+
+                    elif nome_time == 'Flamengo':
+                        seu_time = flamengo
+                        return seu_time,nome_time
+                    else:
+                        print('Nenhum arquivo salvo encontrado.')
+
+
+
+
+
+                #Iniciando novo jogo:
+                elif jogo == 2:
+
+                    time = str(input(f'{cor["fundo_preto"]}{cor["verde"]}Escolha um time:\n{cor["branco"]}[1] - Corinthans\n{cor["vermelho"]}[2] - Flamengo\n: {cor["limpa"]}'))
+
+                    if time.isnumeric():
+                        seu_time = int(time)
+
+                        if 0 < seu_time < 3:
+
+
+                            if seu_time == 1:
+                                seu_time = corinthans
+                                nome_time = 'Corinthans'
+                                return seu_time, nome_time
+
+
+                            if seu_time == 2:
+                                seu_time = flamengo
+                                nome_time = 'Flamengo'
+                                return seu_time, nome_time
+                        else:
+                            print(f'{cor["fundo_preto"]}{cor["vermelho"]}Digite um valor valido.{cor["limpa"]}')
+                    else:
+                        print(f'{cor["fundo_preto"]}{cor["vermelho"]}Digite um valor valido.{cor["limpa"]}')
             else:
-                print('Nenhum arquivo salvo encontrado.')
+                print(f'{cor["fundo_preto"]}{cor["vermelho"]}Digite um valor valido.{cor["limpa"]}')
 
 
+        else:
+            print(f'{cor["fundo_preto"]}{cor["vermelho"]}Digite um valor valido.')
 
-
-        #Iniciando novo jogo:
-        elif jogo == 2:
-
-            seu_time = int(input('Escolha um time:\n[1] - Corinthans\n[2] - Flamengo\n: '))
-
-
-            if seu_time == 1:
-                seu_time = corinthans
-                nome_time = 'Corinthans'
-
-
-            if seu_time == 2:
-                seu_time = flamengo
-                nome_time = 'Flamengo'
-
-
-            return seu_time,nome_time
 
 
 
@@ -138,7 +160,7 @@ def esquemas_taticos(esquema_escolhido):
 
 
     if esquema_escolhido == 1:
-        seu_time_titular = {'Goleiro': {'Status': 'Vazio'}, 'Zagueiro Esquerdo': {'Status': 'Vazio'},
+        seu_time_titular = {'Goleiro': {'Nome': 'Vazio'}, 'Zagueiro Esquerdo': {'Status': 'Vazio'},
                             'Zagueiro Direito': {'Status': 'Vazio'},
                             'Lateral Esquerdo': {'Status': 'Vazio'}, 'Lateral Direito': {'Status': 'Vazio'},
                             'Meio-Campo 1': {'Status': 'Vazio'},
@@ -235,6 +257,7 @@ def escolha_automatica(seu_time):
                         posicoes_preenchidas.append((posicao_ainda_vazia))
 
 
+
     return seu_time_titular
 
 
@@ -306,6 +329,7 @@ def realiza_subs(seu_time_titular,jogador_novo,jogador_velho):
 #Funcao para mostrar o time titular:
 def mostrando_time_titular(seu_time_titular):
     # Printando o time titular a cada entrada:
+    seu_time_titular = ajuste_forca(seu_time_titular)
     print(f'{cor["fundo_preto"]}{cor["amarelo"]}{cor["negrito"]}TIME TITULAR')
     print('-' * 150)
     print(
@@ -315,13 +339,20 @@ def mostrando_time_titular(seu_time_titular):
     for item, value in seu_time_titular.items():
         print(f'{cor["verde"]}{item:<20}', end='')
         for key, values in value.items():
-            print(f'{cor["verde"]}{values:>20}', end='')
+            if value['fora_posicao']:
+                value['fora_posicao'] = '   Fora da posicao correta'
+                print(f'{cor["vermelho"]}{values:>20}',end='')
+
+            else:
+                value['fora_posicao'] = ''
+                print(f'{cor["verde"]}{values:>20}', end='')
         print()
     print(f'{cor["limpa"]}')
 
 
 #Funcao para mostrar o time reserva:
 def mostrar_reservas(seu_time,seu_time_titular):
+    seu_time_titular = ajuste_forca(seu_time_titular)
     titulares = lista_controle_titulares(seu_time_titular)
     todos = lista_controle(seu_time)
     banco_reservas = list()
@@ -352,15 +383,27 @@ def forca_time(seu_time_titular):
     for jogador in seu_time_titular.values():
         total += jogador['Forca']
 
+
     return total
 
 def mostra_forca(total_forca):
-    print(f'{total_forca}')
+    print(f'{cor["fundo_preto"]}{cor["azul"]}Força do time: {total_forca}{cor["limpa"]}')
 
 
 
+def ajuste_forca(seu_time_titular):
+
+    for pos,jog in seu_time_titular.items():
+        jog['fora_posicao'] = False
+        if jog['Posicao'] not in pos:
+            jog['Forca'] -= jog['Forca'] - (jog['Forca'] - 20)
+            jog['fora_posicao'] = True
+            if jog['Forca'] < 0:
+                jog['Forca'] = 0
 
 
+
+    return seu_time_titular
 
 
 
@@ -373,53 +416,67 @@ def menu_principal():
 
     while True:
         print(f'{cor["fundo_preto"]}{cor['roxo']}','-'*100)
-        ver = int(input(f'{cor["fundo_preto"]}{cor["roxo"]}[1] - Ver seu time\n[2] - Escolher time titular (um por um)\n[3] - Escolha automatica\n[4] - Salvar Jogo: '))
+        escolha = str(input(f'{cor["fundo_preto"]}{cor["verde"]}[1] - {cor["roxo"]}Ver seu time\n{cor["verde"]}[2] - {cor["roxo"]}Escolher time titular (um por um)\n{cor["verde"]}[3] - {cor["roxo"]}Escolha automatica\n{cor["verde"]}[4] - {cor["roxo"]}Salvar Jogo: {cor["limpa"]}'))
 
-        if ver == 1:
+        if escolha.isnumeric():
+            ver = int(escolha)
 
-            mostrar_time(seu_time)
+            if 0 < ver < 5:
 
 
-        elif ver == 2:
+                if ver == 1:
 
-            while True:
-                time_titular = escolhendo_posicao(seu_time)
-                mostrando_time_titular(time_titular)
-                print('-'*100)
-                novamente = input(f'{cor["roxo"]}Deseja escolher novamente? [S] / [N]')
+                    mostrar_time(seu_time)
 
-                if novamente in 'Ss':
-                    continue
-                elif novamente in 'Nn':
-                    print('Time escolhido')
+
+                elif ver == 2:
+
+                    while True:
+                        time_titular = escolhendo_posicao(seu_time)
+                        time_titular = ajuste_forca(time_titular)
+                        mostrando_time_titular(time_titular)
+                        print('-'*100)
+                        novamente = input(f'{cor["roxo"]}Deseja escolher novamente? [S] / [N]')
+
+                        if novamente in 'Ss':
+                            continue
+                        elif novamente in 'Nn':
+                            print('Time escolhido')
+                            return time_titular,seu_time
+
+                elif ver == 3:
+
+                    time_titular = escolha_automatica(seu_time)
+                    mostrando_time_titular(time_titular)
                     return time_titular,seu_time
 
-        elif ver == 3:
+                elif ver == 4:
+                    salvar(nome_time)
+                    print(f'{cor["azul"]}Jogo salvo.{cor["limpa"]}')
 
-            time_titular = escolha_automatica(seu_time)
-            mostrando_time_titular(time_titular)
-            return time_titular,seu_time
-
-        elif ver == 4:
-            salvar(nome_time)
-            print('Jogo salvo.')
+            else:
+                print(f'{cor["vermelho"]}Digite um valor valido.{cor["limpa"]}')
 
         else:
-            print('Digite um valor valido.')
+            print(f'{cor["vermelho"]}Digite um valor valido.{cor["limpa"]}')
 
 
 #Funcao para escolher esquemas taticos:
 def escolha_esquema():
 
     while True:
-        esquema_escolhido = int(input('Deseja utilizar qual esquema tatico?\n'
-                                      '[1]: 4-4-2\n[2]: 4-3-3\n[3]: 3-5-2\n[4]: 4-2-3-1\n: '))
+        numero = 0
+        esquema_escolhido = str(input(f'{cor["fundo_preto"]}{cor["verde"]}Deseja utilizar qual esquema tatico?\n'
+                                      f'{cor["verde"]}[1]: {cor["roxo"]}4-4-2\n{cor["verde"]}[2]:{cor["roxo"]} 4-3-3\n{cor["verde"]}[3]: {cor["roxo"]}3-5-2\n{cor["verde"]}[4]: {cor["roxo"]}4-2-3-1\n: {cor["limpa"]}'))
 
-        if esquema_escolhido > 0 and esquema_escolhido < 5:
-            return esquema_escolhido
+        if esquema_escolhido.isnumeric():
+            numero = int(esquema_escolhido)
+
+        if 0 < numero < 5:
+            return numero
 
         else:
-            print('Digite um numero de 1 a 4.')
+            print(f'{cor["fundo_preto"]}{cor["vermelho"]}Digite um numero de 1 a 4.{cor["limpa"]}')
 
 
 #Funcao para montar o time que ira jogar, um por um:
@@ -438,7 +495,7 @@ def escolhendo_posicao(seu_time):
 
         #Loop para validar a entrada do usuario e garantir uma entrada valida para a posicao:
         while True:
-            jogador_titular = input(f'Digite o nome do jogador para a posicao {posicao_vazia}: ')
+            jogador_titular = input(f'{cor["fundo_preto"]}{cor["verde"]}Digite o nome do jogador para a posicao {posicao_vazia}: {cor["limpa"]}')
             print('-'*100)
 
             #Validando a entrada comparando com a lista de nomes dos jogadores do time:
@@ -455,22 +512,22 @@ def escolhendo_posicao(seu_time):
                 jogadores_time.remove(jogador_titular)
 
                 # Printando o time titular a cada entrada:
-                print('TIME TITULAR')
+                print(f'{cor["amarelo"]}{cor["fundo_preto"]}TIME TITULAR{cor["limpa"]}')
                 print('-' * 150)
                 print(
-                    f'{"Posicao no Esquema":<20}{"Jogadores":>20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')
+                    f'{cor["fundo_preto"]}{cor["amarelo"]}{"Posicao no Esquema":<20}{"Jogadores":>20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}{cor["limpa"]}')
                 print('-' * 150)
 
                 for item, value in seu_time_titular.items():
-                    print(f'{item:<20}', end='')
+                    print(f'{cor["fundo_preto"]}{cor["amarelo"]}{item:<20}', end='')
                     for key, values in value.items():
-                        print(f'{values:>20}', end='')
+                        print(f'{cor["fundo_preto"]}{cor["amarelo"]}{values:>20}{cor["limpa"]}', end='')
                     print()
                 break
 
 
             else:
-                print('Digite um nome valido.')
+                print(f'{cor["fundo_preto"]}{cor["vermelho"]}Digite um nome valido.{cor["limpa"]}')
 
 
     return seu_time_titular
@@ -484,12 +541,12 @@ def substituicoes(seu_time,seu_time_titular):
     lista_titulares = lista_controle_titulares(seu_time_titular)
 
     while True:
-        substituir = str(input('Qual jogador deseja substituir?\n: '))
+        substituir = str(input(f'{cor["fundo_preto"]}{cor["verde"]}Qual jogador deseja substituir?\n: '))
 
         if substituir in lista_time and substituir in lista_titulares:
 
             while True:
-                escolha = int(input(f'[1] - Escolher substituto para {substituir}\n[2] - Voltar\n: '))
+                escolha = int(input(f'{cor["verde"]}[1] - Escolher substituto para {substituir}\n{cor["vermelho"]}[2] - Voltar\n: '))
 
 
 
@@ -498,13 +555,14 @@ def substituicoes(seu_time,seu_time_titular):
                     while True:
                         mostrar_time(seu_time)
                         print('-_-'*200)
-                        print('LISTA DE RESERVAS')
+                        print(f'{cor["amarelo"]}LISTA DE RESERVAS')
                         mostrar_reservas(seu_time,seu_time_titular)
-                        substituto = str(input('Nome do substituto: '))
+                        substituto = str(input(f'{cor["amarelo"]}Nome do substituto: {cor["limpa"]}'))
 
                         if substituto in lista_time and substituto not in lista_titulares:
                             jogador_novo, jogador_velho = sistema_subs(seu_time,seu_time_titular,substituto,substituir)
                             seu_time_titular = realiza_subs(seu_time_titular,jogador_novo,jogador_velho)
+                            seu_time_titular = ajuste_forca(seu_time_titular)
                             mostrando_time_titular(seu_time_titular)
                             return seu_time_titular
 
@@ -512,17 +570,17 @@ def substituicoes(seu_time,seu_time_titular):
 
 
                         else:
-                            print('Digite um nome valido.')
+                            print(f'{cor["vermelho"]}Digite um nome valido.{cor["limpa"]}')
 
 
                 if escolha == 2:
                     break
 
                 else:
-                    print('Digite um numero valido.')
+                    print(f'{cor["vermelho"]}Digite um numero valido.{cor["limpa"]}')
 
         else:
-            print('Digite um nome valido..')
+            print(f'{cor["vermelho"]}Digite um nome valido..{cor["limpa"]}')
 
 
 
@@ -566,34 +624,52 @@ mostra_forca(forca)
 
 while True:
     print('-'*100)
-    print(f'{cor["fundo_preto"]}{cor["roxo"]}{"MENU PRINCIPAL"}')
-    acao = int(input('[1] - Ver seu time completo\n[2] - Ver seu time titular\n[3] - Substituir\n'
-                     '[4] - Escolher esquema novamente\n[5] - Sair\n: '))
+    print(f'{cor["fundo_preto"]}{cor["verde"]}{"MENU PRINCIPAL"}')
+    escolha = str(input(f'[1] - {cor["roxo"]}Ver seu time completo\n{cor["verde"]}[2] - {cor["roxo"]}Ver seu time titular\n{cor["verde"]}[3] - {cor["roxo"]}Substituir\n'
+                     f'{cor["verde"]}[4] - {cor["roxo"]}Escolher esquema novamente\n{cor["verde"]}[5] - {cor["roxo"]}Sair\n: {cor["limpa"]}'))
 
-    if acao == 1:
-        mostrar_time(seu_time)
+    if escolha.isnumeric():
+        acao = int(escolha)
+
+        if 0 < acao < 6:
+
+            if acao == 1:
+                mostrar_time(seu_time)
 
 
-    elif acao == 2:
-        mostrando_time_titular(time_titular)
-        mostrar_reservas(seu_time, time_titular)
+            elif acao == 2:
+                mostrando_time_titular(time_titular)
+                mostra_forca(forca)
+                mostrar_reservas(seu_time, time_titular)
 
-    elif acao == 3:
-        mostrando_time_titular(time_titular)
-        mostrar_reservas(seu_time,time_titular)
-        time_titular = substituicoes(seu_time,time_titular)
-        mostrando_time_titular(time_titular)
+            elif acao == 3:
+                mostrando_time_titular(time_titular)
+                mostrar_reservas(seu_time,time_titular)
+                time_titular = substituicoes(seu_time,time_titular)
+                mostrando_time_titular(time_titular)
 
-    elif acao == 4:
-        time_titular = escolha_automatica(seu_time)
-        mostrando_time_titular(time_titular)
-        forca = forca_time(time_titular)
-        mostrar_reservas(seu_time, time_titular)
-        mostra_forca(forca)
+            elif acao == 4:
+                time_titular = escolha_automatica(seu_time)
+                mostrando_time_titular(time_titular)
+                forca = forca_time(time_titular)
+                mostrar_reservas(seu_time, time_titular)
+                mostra_forca(forca)
 
-    elif acao == 5:
-        print('Encerrando...')
-        break
+            elif acao == 5:
+                print('Encerrando...')
+                break
+
+            else:
+                print(f'{cor["fundo_preto"]}{cor["vermelho"]}Digite um numero valido.{cor["limpa"]}')
+
+    else:
+        print(f'{cor["fundo_preto"]}{cor["vermelho"]}Digite um numero valido.{cor["limpa"]}')
+
+
+
+
+
+
 
 
 
