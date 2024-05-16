@@ -265,6 +265,7 @@ def escolha_automatica(seu_time):
 #Funcao para mostrar o time completo (tela inicial do jogo):
 def mostrar_time(seu_time):
     print(f'{cor["fundo_preto"]}{'-' * 150}')
+    mostra_nome_time()
     print(f'{cor["fundo_preto"]}{cor["azul"]}{"Jogadores":<20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')  #Primeira linha da tabela
     print('-' * 150)
 
@@ -327,18 +328,35 @@ def realiza_subs(seu_time_titular,jogador_novo,jogador_velho):
     return seu_time_titular
 
 
+#Funcao que printa o nome do time formatado
+def mostra_nome_time():
+    with open("save.txt",'r') as file:
+        nome_str = file.read()
+
+    if nome_str == 'Flamengo':
+
+        cor_time = cor["vermelho"]
+    else:
+        cor_time = cor["branco"]
+
+    print(f'{cor["fundo_preto"]}{cor["negrito"]}{cor_time}{nome_str}{cor["limpa"]}')
+
+
 #Funcao para mostrar o time titular:
 def mostrando_time_titular(seu_time_titular):
-    # Printando o time titular a cada entrada:
-    seu_time_titular = ajuste_forca(seu_time_titular)
-    print(f'{cor["fundo_preto"]}{cor["amarelo"]}{cor["negrito"]}TIME TITULAR')
-    print('-' * 150)
-    print(
-        f'{cor["fundo_preto"]}{cor["amarelo"]}{"Posicao no Esquema":<20}{"Jogadores":>20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')
-    print('-' * 150)
 
+
+    #Cabecalho principal:
+    seu_time_titular = ajuste_forca(seu_time_titular)
+    mostra_nome_time()
+    print(f'{cor["fundo_preto"]}{cor["amarelo"]}{cor["negrito"]}{"TIME TITULAR"}{cor["limpa"]}')
+    print(f'{cor["fundo_preto"]}{cor["amarelo"]}{'-' * 300}{cor["limpa"]}')
+    print(f'{cor["fundo_preto"]}{cor["amarelo"]}{"Posicao no Esquema":<20}{"Jogadores":>20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')
+    print(f'{cor["fundo_preto"]}{cor["amarelo"]}{'-' * 300}{cor["limpa"]}')
+
+    #Tabela:
     for item, value in seu_time_titular.items():
-        print(f'{cor["verde"]}{item:<20}', end='')
+        print(f'{cor["fundo_preto"]}{cor["verde"]}{item:<20}', end='')
         for key, values in value.items():
             if value['fora_posicao']:
                 value['fora_posicao'] = '   Fora da posicao correta'
@@ -358,10 +376,10 @@ def mostrar_reservas(seu_time,seu_time_titular):
     todos = lista_controle(seu_time)
     banco_reservas = list()
 
-    print('-' * 150)
+    print(f'{cor["fundo_preto"]}{cor["amarelo"]}{'-' * 300}{cor["limpa"]}')
     print(F'{cor["fundo_preto"]}{cor["vermelho"]}{"BANCO DE RESERVAS":^5}')
     print(f'{cor["fundo_preto"]}{cor["vermelho"]}{"Jogadores":<20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')  # Primeira linha da tabela
-    print('-' * 150)
+    print(f'{cor["fundo_preto"]}{cor["amarelo"]}{'-' * 300}{cor["limpa"]}')
 
     for posicao in seu_time:  # Loop para mostrar o time formatado em tabela
         for key, value in posicao.items():
@@ -409,12 +427,21 @@ def ajuste_forca(seu_time_titular):
 
 
 
+
+
+
+
+
+
+
+
 #BLOCO 3 - INTERACOES COM USUARIO
 
 #Menu principal onde as outras funcoes sao chamadas:
 def menu_principal():
 
     seu_time,nome_time = escolha_time()
+    salvar(nome_time)
 
     while True:
         print(f'{cor["fundo_preto"]}{cor['roxo']}','-'*100)
@@ -675,59 +702,6 @@ while True:
 
 
 
-
-
-
-
-
-#BLOCO 5 - TESTES DE FUNCIONAMENTO DAS FUNCOES
-time_titular,seu_time = menu_principal()
-forca = forca_time(time_titular)
-mostrar_reservas(seu_time,time_titular)
-mostra_forca(forca)
-
-while True:
-    print('-'*100)
-    print(f'{cor["fundo_preto"]}{cor["verde"]}{"MENU PRINCIPAL"}')
-    escolha = str(input(f'[1] - {cor["roxo"]}Ver seu time completo\n{cor["verde"]}[2] - {cor["roxo"]}Ver seu time titular\n{cor["verde"]}[3] - {cor["roxo"]}Substituir\n'
-                     f'{cor["verde"]}[4] - {cor["roxo"]}Escolher esquema novamente\n{cor["verde"]}[5] - {cor["roxo"]}Sair\n: {cor["limpa"]}'))
-
-    if escolha.isnumeric():
-        acao = int(escolha)
-
-        if 0 < acao < 6:
-
-            if acao == 1:
-                mostrar_time(seu_time)
-
-
-            elif acao == 2:
-                mostrando_time_titular(time_titular)
-                mostra_forca(forca)
-                mostrar_reservas(seu_time, time_titular)
-
-            elif acao == 3:
-                mostrando_time_titular(time_titular)
-                mostrar_reservas(seu_time,time_titular)
-                time_titular = substituicoes(seu_time,time_titular)
-                mostrando_time_titular(time_titular)
-
-            elif acao == 4:
-                time_titular = escolha_automatica(seu_time)
-                mostrando_time_titular(time_titular)
-                forca = forca_time(time_titular)
-                mostrar_reservas(seu_time, time_titular)
-                mostra_forca(forca)
-
-            elif acao == 5:
-                print('Encerrando...')
-                break
-
-            else:
-                print(f'{cor["fundo_preto"]}{cor["vermelho"]}Digite um numero valido.{cor["limpa"]}')
-
-    else:
-        print(f'{cor["fundo_preto"]}{cor["vermelho"]}Digite um numero valido.{cor["limpa"]}')
 
 
 
