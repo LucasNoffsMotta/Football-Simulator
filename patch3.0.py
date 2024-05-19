@@ -1,85 +1,20 @@
 from Colors import cores
 import pygame
 from music_mp3 import musica
+import modulo_util
+from times import times
 
 cor = cores()
 pygame.init()
-
+caixa_inicio = 30000000.00
 
 
 
 #BLOCO 1  - TIMES
 
-#Dicionario dos times (serao compactados em uma funcao apos os testes):
-def times():
-    jogadores_flamengo = {
-        'Goleiro': [
-            {'Nome': 'Diego Alves', 'Posicao' : 'Goleiro','Forca': 84, 'Idade': 36, 'Nacionalidade': 'Brasil'},
-            {'Nome': 'Hugo Souza', 'Posicao':'Goleiro','Forca': 75, 'Idade': 23, 'Nacionalidade': 'Brasil'}
-        ],
-        'Lateral Direito': [
-            {'Nome': 'Maurício Isla', 'Posicao':'Lateral Direito','Forca': 81, 'Idade': 33, 'Nacionalidade': 'Chile'},
-            {'Nome': 'Rodinei', 'Posicao':'Lateral Direito','Forca': 75, 'Idade': 29, 'Nacionalidade': 'Brasil'}
-        ],
-        'Zagueiro': [
-            {'Nome': 'Gustavo Henrique', 'Posicao':'Zagueiro','Forca': 78, 'Idade': 28, 'Nacionalidade': 'Brasil'},
-            {'Nome': 'Bruno Viana', 'Posicao':'Zagueiro','Forca': 77, 'Idade': 26, 'Nacionalidade': 'Portugal'},
-            {'Nome': 'Léo Pereira', 'Posicao':'Zagueiro','Forca': 75, 'Idade': 25, 'Nacionalidade': 'Brasil'}
-        ],
-        'Lateral Esquerdo': [
-            {'Nome': 'Filipe Luís', 'Posicao':'Lateral Esquerdo','Forca': 82, 'Idade': 36, 'Nacionalidade': 'Brasil'}
-        ],
-        'Meio-Campo': [
-            {'Nome': 'Willian Arão', 'Posicao':'Meio-Campo','Forca': 80, 'Idade': 29, 'Nacionalidade': 'Brasil'},
-            {'Nome': 'Gerson', 'Posicao':'Meio-Campo','Forca': 83, 'Idade': 24, 'Nacionalidade': 'Brasil'},
-            {'Nome': 'Everton Ribeiro', 'Posicao':'Meio-Campo','Forca': 82, 'Idade': 32, 'Nacionalidade': 'Brasil'},
-            {'Nome': 'Arrascaeta', 'Posicao':'Meio-Campo','Forca': 84, 'Idade': 27, 'Nacionalidade': 'Uruguai'}
-        ],
-        'Atacante': [
-            {'Nome': 'Gabigol', 'Posicao':'Atacante','Forca': 84, 'Idade': 25, 'Nacionalidade': 'Brasil'},
-            {'Nome': 'Bruno Henrique', 'Posicao':'Atacante','Forca': 83, 'Idade': 31, 'Nacionalidade': 'Brasil'}
-    ]
-    }
-    jogadores_corinthians = {
-        'Goleiro': [
-            {'Nome': 'Cássio', 'Posicao':'Goleiro','Forca': 80, 'Idade': 34, 'Nacionalidade': 'Brasil'},
-            {'Nome': 'Matheus Donelli', 'Posicao':'Goleiro','Forca': 72, 'Idade': 20, 'Nacionalidade': 'Brasil'}
-        ],
-        'Lateral Direito': [
-            {'Nome': 'Fagner', 'Posicao':'Lateral Direito','Forca': 79, 'Idade': 32, 'Nacionalidade': 'Brasil'},
-            {'Nome': 'João Pedro', 'Posicao':'Lateral Direito','Forca': 72, 'Idade': 24, 'Nacionalidade': 'Brasil'}
-        ],
-        'Zagueiro': [
-            {'Nome': 'Gil', 'Posicao':'Zagueiro','Forca': 77, 'Idade': 34, 'Nacionalidade': 'Brasil'},
-            {'Nome': 'João Victor', 'Posicao':'Zagueiro','Forca': 74, 'Idade': 24, 'Nacionalidade': 'Brasil'},
-            {'Nome': 'Raul Gustavo', 'Posicao':'Zagueiro','Forca': 72, 'Idade': 22, 'Nacionalidade': 'Brasil'}
-        ],
-        'Lateral Esquerdo': [
-            {'Nome': 'Fábio Santos', 'Posicao':'Lateral Esquerdo','Forca': 76, 'Idade': 36, 'Nacionalidade': 'Brasil'},
-            {'Nome': 'Lucas Piton', 'Posicao':'Lateral Esquerdo','Forca': 72, 'Idade': 21, 'Nacionalidade': 'Brasil'}
-        ],
-        'Meio-Campo': [
-            {'Nome': 'Gabriel', 'Posicao':'Meio-Campo','Forca': 78, 'Idade': 24, 'Nacionalidade': 'Brasil'},
-            {'Nome': 'Roni', 'Posicao':'Meio-Campo','Forca': 73, 'Idade': 22, 'Nacionalidade': 'Brasil'},
-            {'Nome': 'Xavier', 'Posicao':'Meio-Campo','Forca': 74, 'Idade': 23, 'Nacionalidade': 'Brasil'},
-            {'Nome': 'Vitinho', 'Posicao':'Meio-Campo','Forca': 70, 'Idade': 23, 'Nacionalidade': 'Brasil'},
-            {'Nome': 'Matheus Araújo', 'Posicao':'Meio-Campo','Forca': 68, 'Idade': 21, 'Nacionalidade': 'Brasil'}
-        ],
-        'Atacante': [
-            {'Nome': 'Léo Natel', 'Posicao':'Atacante','Forca': 72, 'Idade': 24, 'Nacionalidade': 'Brasil'},
-            {'Nome': 'Jô', 'Posicao':'Atacante','Forca': 75, 'Idade': 35, 'Nacionalidade': 'Brasil'},
-            {'Nome': 'Felipe', 'Posicao':'Atacante','Forca': 70, 'Idade': 23, 'Nacionalidade': 'Brasil'},
-            {'Nome': 'Ruan Oliveira', 'Posicao':'Atacante','Forca': 68, 'Idade': 22, 'Nacionalidade': 'Brasil'}
-        ]
-    }
-
-    return jogadores_flamengo,jogadores_corinthians
-
 #Funcao para escolher o time:
 def escolha_time():
-
     jogadores_flamengo,jogadores_corinthans = times()
-
     corinthans = list()
     flamengo = list()
     flamengo.append(jogadores_flamengo)
@@ -146,7 +81,18 @@ def escolha_time():
         else:
             print(f'{cor["fundo_preto"]}{cor["vermelho"]}Digite um valor valido.')
 
+def dinheiro_caixa(seu_time,nome_time,caixa_inicio):
 
+    global caixa_total
+
+    if nome_time == 'Corinthans':
+        caixa_total = caixa_inicio - 10000000
+    if nome_time == 'Flamengo':
+        caixa_total = caixa_inicio
+
+    seu_time.append(caixa_total)
+
+    return seu_time
 
 
 
@@ -238,29 +184,27 @@ def escolha_automatica(seu_time):
 
 
     #Colocando o dicionario do jogador dentro do time titular:
-    for posicao in seu_time:
-        for key, value in posicao.items():
-            for jogador in value:
-                #Selecionando jogador da posicao correta para inserir:
-                for posicao_vazia in seu_time_titular.keys():
-                    if jogador['Posicao'] in posicao_vazia and jogador['Nome'] not in jogadores_time and posicao_vazia not in posicoes_preenchidas:
-                        seu_time_titular[posicao_vazia] = jogador.copy()
-                        #Colocando o jogador que ja esta no time em uma lista para nao repetir:
-                        jogadores_time.append(jogador['Nome'])
-                        posicoes_preenchidas.append((posicao_vazia))
+    for key, value in seu_time[0].items():
+        for jogador in value:
+            #Selecionando jogador da posicao correta para inserir:
+            for posicao_vazia in seu_time_titular.keys():
+                if jogador['Posicao'] in posicao_vazia and jogador['Nome'] not in jogadores_time and posicao_vazia not in posicoes_preenchidas:
+                    seu_time_titular[posicao_vazia] = jogador.copy()
+                    #Colocando o jogador que ja esta no time em uma lista para nao repetir:
+                    jogadores_time.append(jogador['Nome'])
+                    posicoes_preenchidas.append((posicao_vazia))
 
 
     #Loop para preencher posicoes que ficaram vazias, se possivel:
-    for pos in seu_time:
-        for key2,value2 in pos.items():
-            for jog in value2:
-                #Analisando o jogador para inserir nas posicoes que faltam:
-                for posicao_ainda_vazia in seu_time_titular.keys():
-                    if jog['Posicao'] != 'Goleiro' and jog['Posicao'] not in posicao_ainda_vazia and jog['Nome'] not in jogadores_time and posicao_ainda_vazia not in posicoes_preenchidas:
-                        seu_time_titular[posicao_ainda_vazia] = jog.copy()
-                        # Colocando o jogador que ja esta no time em uma lista para nao repetir:
-                        jogadores_time.append(jog['Nome'])
-                        posicoes_preenchidas.append((posicao_ainda_vazia))
+    for key2,value2 in seu_time[0].items():
+        for jog in value2:
+            #Analisando o jogador para inserir nas posicoes que faltam:
+            for posicao_ainda_vazia in seu_time_titular.keys():
+                if jog['Posicao'] != 'Goleiro' and jog['Posicao'] not in posicao_ainda_vazia and jog['Nome'] not in jogadores_time and posicao_ainda_vazia not in posicoes_preenchidas:
+                    seu_time_titular[posicao_ainda_vazia] = jog.copy()
+                    # Colocando o jogador que ja esta no time em uma lista para nao repetir:
+                    jogadores_time.append(jog['Nome'])
+                    posicoes_preenchidas.append((posicao_ainda_vazia))
 
 
 
@@ -269,27 +213,31 @@ def escolha_automatica(seu_time):
 
 #Funcao para mostrar o time completo (tela inicial do jogo):
 def mostrar_time(seu_time):
+    time_formatado = modulo_util.transforma_formata(seu_time)
     print(f'{cor["fundo_preto"]}{'-' * 150}')
     mostra_nome_time()
-    print(f'{cor["fundo_preto"]}{cor["azul"]}{"Jogadores":<20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')  #Primeira linha da tabela
+    print(f'{cor["fundo_preto"]}{cor["verde"]}Dinheiro em caixa: R$ {seu_time[1]}')
+    print(f'{cor["fundo_preto"]}{cor["azul"]}{"Jogadores":<20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}{"Valor de mercado":>20}{"Salario":>18}')  #Primeira linha da tabela
     print('-' * 150)
 
-    for posicao in seu_time:    #Loop para mostrar o time formatado em tabela
-        for key, value in posicao.items():
-            for jogador in value:
-                for caracteristica, valor in jogador.items():
+  #Loop para mostrar o time formatado em tabela
+    for key, value in time_formatado[0].items():
+        for jogador in value:
+            for caracteristica, valor in jogador.items():
+                if caracteristica != 'Valor' and caracteristica != 'Salario':
                     print(f'{cor["verde"]}{valor:>20}', end='')
-                print()
+            print()
+
+
 
 
 # Funcao que inclui o nome dos jogadores do time em uma lista para utilizar como validacao futuramente no codigo:
 def lista_controle(seu_time):
 
     jogadores_time = list()
-    for posicao in seu_time:
-        for key, value in posicao.items():
-            for jogador in value:
-                jogadores_time.append(jogador['Nome'])
+    for key, value in seu_time[0].items():
+        for jogador in value:
+            jogadores_time.append(jogador['Nome'])
 
     return jogadores_time
 
@@ -307,11 +255,11 @@ def lista_controle_titulares(seu_time_titular):
 #Funcao que relaciona o nome do jogador digitado com o dicionario correspondente:
 def sistema_subs(seu_time,seu_time_titular,jogador_novo,jogador_velho):
 
-    for posicao in seu_time:
-        for key, lista in posicao.items():
-            for jogador in lista:
-                if jogador_novo == jogador['Nome']:
-                    jogador_novo = jogador
+
+    for key, lista in seu_time[0].items():
+        for jogador in lista:
+            if jogador_novo == jogador['Nome']:
+                jogador_novo = jogador
 
     for pos, jog in seu_time_titular.items():
         if jogador_velho == jog['Nome']:
@@ -323,8 +271,6 @@ def sistema_subs(seu_time,seu_time_titular,jogador_novo,jogador_velho):
 
 #Funcao que realiza a substituicao utilizando como parametro o sistema de substituicao:
 def realiza_subs(seu_time_titular,jogador_novo,jogador_velho):
-
-
 
     for key,jogador in seu_time_titular.items():
         if jogador['Nome'] == jogador_velho['Nome']:
@@ -344,7 +290,7 @@ def mostra_nome_time():
     else:
         cor_time = cor["branco"]
 
-    print(f'{cor["fundo_preto"]}{cor["negrito"]}{cor_time}{nome_str}{cor["limpa"]}')
+    print(f'{cor["fundo_preto"]}{cor["negrito"]}{cor_time}{nome_str}')
 
 
 #Funcao para mostrar o time titular:
@@ -363,13 +309,14 @@ def mostrando_time_titular(seu_time_titular):
     for item, value in seu_time_titular.items():
         print(f'{cor["fundo_preto"]}{cor["verde"]}{item:<20}', end='')
         for key, values in value.items():
-            if value['fora_posicao']:
+            if value['fora_posicao'] and 'Salario' not in key and 'Valor' not in key:
                 value['fora_posicao'] = '   Fora da posicao correta'
                 print(f'{cor["vermelho"]}{values:>20}',end='')
 
             else:
-                value['fora_posicao'] = ''
-                print(f'{cor["verde"]}{values:>20}', end='')
+                if 'Valor' not in key and 'Salario' not in key:
+                    value['fora_posicao'] = ''
+                    print(f'{cor["verde"]}{values:>20}', end='')
         print()
     print(f'{cor["limpa"]}')
 
@@ -386,14 +333,20 @@ def mostrar_reservas(seu_time,seu_time_titular):
     print(f'{cor["fundo_preto"]}{cor["vermelho"]}{"Jogadores":<20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')  # Primeira linha da tabela
     print(f'{cor["fundo_preto"]}{cor["amarelo"]}{'-' * 300}{cor["limpa"]}')
 
-    for posicao in seu_time:  # Loop para mostrar o time formatado em tabela
-        for key, value in posicao.items():
-            for jogador in value:
-                if jogador['Nome'] not in titulares:
-                    for caracteristica, valor in jogador.items():
-                        print(f'{cor["fundo_preto"]}{cor["vermelho"]}{valor:>20}', end='')
-                        banco_reservas.append(jogador)
-                    print()
+     #Loop para montrar o dicionario do banco de reservas:
+    for key, value in seu_time[0].items():
+        for jogador in value:
+            if jogador['Nome'] not in titulares:
+                banco_reservas.append(jogador)
+
+    #Loop para mostrar o banco de reservas formatado:
+    for jogador_reserva in banco_reservas:
+        for key,item in jogador_reserva.items():
+            if 'Valor' not in key and 'Salario' not in key:
+                print(f'{cor["fundo_preto"]}{cor["vermelho"]}{item:>20}',end = '')
+        print()
+
+
     print(f'{cor["limpa"]}')
 
     return banco_reservas
@@ -440,6 +393,7 @@ def ajuste_forca(seu_time_titular):
 
 
 
+
 #BLOCO 3 - INTERACOES COM USUARIO
 
 #Menu principal onde as outras funcoes sao chamadas:
@@ -447,9 +401,12 @@ def menu_principal():
 
     seu_time,nome_time = escolha_time()
     salvar(nome_time)
+    dinheiro_caixa(seu_time,nome_time,caixa_inicio)
+
+
 
     while True:
-        print(f'{cor["fundo_preto"]}{cor['roxo']}','-'*100)
+        print(f'{cor["fundo_preto"]}{cor['roxo']}','-'*150)
         escolha = str(input(f'{cor["fundo_preto"]}{cor["verde"]}[1] - {cor["roxo"]}Ver seu time\n{cor["verde"]}'
                             f'[2] - {cor["roxo"]}Escolher time titular (um por um)\n{cor["verde"]}'
                             f'[3] - {cor["roxo"]}Escolha automatica\n{cor["verde"]}'
@@ -544,26 +501,25 @@ def escolhendo_posicao(seu_time):
             if jogador_titular in jogadores_time:
 
                 #Colocando o dicionario do jogador dentro do time titular:
-                for posicao in seu_time:
-                    for key, value in posicao.items():
-                        for jogador in value:
-                            if jogador_titular in jogador.values():
-                                seu_time_titular[posicao_vazia] = jogador
+                for key, value in seu_time[0].items():
+                    for jogador in value:
+                        if jogador_titular in jogador.values():
+                            seu_time_titular[posicao_vazia] = jogador
 
                 #Removendo o jogador selecionado da lista de jogadores do time:
                 jogadores_time.remove(jogador_titular)
 
                 # Printando o time titular a cada entrada:
-                print(f'{cor["amarelo"]}{cor["fundo_preto"]}TIME TITULAR{cor["limpa"]}')
+                print(f'{cor["amarelo"]}{cor["fundo_preto"]}TIME TITULAR')
                 print('-' * 150)
                 print(
-                    f'{cor["fundo_preto"]}{cor["amarelo"]}{"Posicao no Esquema":<20}{"Jogadores":>20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}{cor["limpa"]}')
+                    f'{cor["fundo_preto"]}{cor["amarelo"]}{"Posicao no Esquema":<20}{"Jogadores":>20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')
                 print('-' * 150)
 
                 for item, value in seu_time_titular.items():
                     print(f'{cor["fundo_preto"]}{cor["amarelo"]}{item:<20}', end='')
                     for key, values in value.items():
-                        print(f'{cor["fundo_preto"]}{cor["amarelo"]}{values:>20}{cor["limpa"]}', end='')
+                        print(f'{cor["fundo_preto"]}{cor["amarelo"]}{values:>20}', end='')
                     print()
                 break
 
@@ -668,7 +624,7 @@ def main():
 
 
     while True:
-        print('-'*100)
+        print('-'*150)
         print(f'{cor["fundo_preto"]}{cor["verde"]}{"MENU PRINCIPAL"}')
         escolha = str(input(f'[1] - {cor["roxo"]}Ver seu time completo\n{cor["verde"]}'
                             f'[2] - {cor["roxo"]}Ver seu time titular\n{cor["verde"]}'
@@ -723,10 +679,23 @@ def main():
             print(f'{cor["fundo_preto"]}{cor["vermelho"]}Digite um numero valido.{cor["limpa"]}')
 
 
-
-
-musica()
 main()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
