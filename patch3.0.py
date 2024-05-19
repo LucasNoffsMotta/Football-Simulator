@@ -3,13 +3,7 @@ from Colors import cores
 cor = cores()
 
 
-#BLOCO 1  - TIMES
 
-#Dicionario dos times (serao compactados em uma funcao apos os testes):
-def times():
-    jogadores_flamengo = {
-        'Goleiro': [
-            {'Nome': 'Diego Alves', 'Posicao' : 'Goleiro','Forca': 84, 'Idade': 36, 'Naciofrom Colors import cores
 import pygame
 from music_mp3 import musica
 
