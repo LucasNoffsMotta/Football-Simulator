@@ -3,10 +3,11 @@ import pygame
 from music_mp3 import musica
 import modulo_util
 from times import times
+import financas
 
 cor = cores()
 pygame.init()
-caixa_inicio = 30000000.00
+caixa_inicio = 30000000
 
 
 
@@ -36,11 +37,14 @@ def escolha_time():
                     nome_time = load()
 
                     if nome_time == 'Corinthans':
-                        seu_time = corinthans
+                        seu_time_inicial = corinthans
+                        # Ajusta formatacao d dicionario dentro de Time:
+                        seu_time = modulo_util.calcula_salario(seu_time_inicial)
                         return seu_time,nome_time
 
                     elif nome_time == 'Flamengo':
-                        seu_time = flamengo
+                        seu_time_inicial = flamengo
+                        seu_time = modulo_util.calcula_salario(seu_time_inicial)
                         return seu_time,nome_time
                     else:
                         print(f'{cor["fundo_preto"]}{cor["vermelho"]}Nenhum arquivo salvo encontrado.{cor["limpa"]}')
@@ -61,14 +65,16 @@ def escolha_time():
 
 
                             if seu_time == 1:
-                                seu_time = corinthans
+                                seu_time_inicial = corinthans
                                 nome_time = 'Corinthans'
+                                seu_time = modulo_util.calcula_salario(seu_time_inicial)
                                 return seu_time, nome_time
 
 
                             if seu_time == 2:
-                                seu_time = flamengo
+                                seu_time_inicial = flamengo
                                 nome_time = 'Flamengo'
+                                seu_time = modulo_util.calcula_salario(seu_time_inicial)
                                 return seu_time, nome_time
                         else:
                             print(f'{cor["fundo_preto"]}{cor["vermelho"]}Digite um valor valido.{cor["limpa"]}')
@@ -84,6 +90,7 @@ def escolha_time():
 def dinheiro_caixa(seu_time,nome_time,caixa_inicio):
 
     global caixa_total
+
 
     if nome_time == 'Corinthans':
         caixa_total = caixa_inicio - 10000000
@@ -213,15 +220,23 @@ def escolha_automatica(seu_time):
 
 #Funcao para mostrar o time completo (tela inicial do jogo):
 def mostrar_time(seu_time):
-    time_formatado = modulo_util.transforma_formata(seu_time)
+
     print(f'{cor["fundo_preto"]}{'-' * 150}')
     mostra_nome_time()
     print(f'{cor["fundo_preto"]}{cor["verde"]}Dinheiro em caixa: R$ {seu_time[1]}')
-    print(f'{cor["fundo_preto"]}{cor["azul"]}{"Jogadores":<20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}{"Valor de mercado":>20}{"Salario":>18}')  #Primeira linha da tabela
+    print(f'{cor["fundo_preto"]}{cor["azul"]}'
+          f'{"Jogadores":<20} '
+          f'{"Posicao":>20}'
+          f' {"Forca":>20}'
+          f'{"Idade":>20}'
+          f'{"Nacionalidade":>20}'
+          f'{"Energia":>20}'
+          f'{"Valor de mercado":>20}'
+          f'{"Salario":>18}')  #Primeira linha da tabela
     print('-' * 150)
 
   #Loop para mostrar o time formatado em tabela
-    for key, value in time_formatado[0].items():
+    for key, value in seu_time[0].items():
         for jogador in value:
             for caracteristica, valor in jogador.items():
                 if caracteristica != 'Valor' and caracteristica != 'Salario':
@@ -302,7 +317,14 @@ def mostrando_time_titular(seu_time_titular):
     mostra_nome_time()
     print(f'{cor["fundo_preto"]}{cor["amarelo"]}{cor["negrito"]}{"TIME TITULAR"}{cor["limpa"]}')
     print(f'{cor["fundo_preto"]}{cor["amarelo"]}{'-' * 300}{cor["limpa"]}')
-    print(f'{cor["fundo_preto"]}{cor["amarelo"]}{"Posicao no Esquema":<20}{"Jogadores":>20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')
+    print(f'{cor["fundo_preto"]}{cor["amarelo"]}'
+          f'{"Posicao no Esquema":<20}'
+          f'{"Jogadores":>20} '
+          f'{"Posicao":>20}'
+          f' {"Forca":>20}'
+          f'{"Idade":>20}'
+          f'{"Nacionalidade":>20}'
+          f'{"Energia":>20}')
     print(f'{cor["fundo_preto"]}{cor["amarelo"]}{'-' * 300}{cor["limpa"]}')
 
     #Tabela:
@@ -330,7 +352,13 @@ def mostrar_reservas(seu_time,seu_time_titular):
 
     print(f'{cor["fundo_preto"]}{cor["amarelo"]}{'-' * 300}{cor["limpa"]}')
     print(F'{cor["fundo_preto"]}{cor["vermelho"]}{"BANCO DE RESERVAS":^5}')
-    print(f'{cor["fundo_preto"]}{cor["vermelho"]}{"Jogadores":<20} {"Posicao":>20} {"Forca":>20}{"Idade":>20}{"Nacionalidade":>20}')  # Primeira linha da tabela
+    print(f'{cor["fundo_preto"]}{cor["vermelho"]}'
+          f'{"Jogadores":<20} '
+          f'{"Posicao":>20}'
+          f'{"Forca":>20}'
+          f'{"Idade":>20}'
+          f'{"Nacionalidade":>20}'
+          f'{"Energia":>20}')  # Primeira linha da tabela
     print(f'{cor["fundo_preto"]}{cor["amarelo"]}{'-' * 300}{cor["limpa"]}')
 
      #Loop para montrar o dicionario do banco de reservas:
@@ -399,7 +427,8 @@ def ajuste_forca(seu_time_titular):
 #Menu principal onde as outras funcoes sao chamadas:
 def menu_principal():
 
-    seu_time,nome_time = escolha_time()
+    seu_time_bruto,nome_time = escolha_time()
+    seu_time = modulo_util.mecanica_energia(seu_time_bruto)
     salvar(nome_time)
     dinheiro_caixa(seu_time,nome_time,caixa_inicio)
 
@@ -411,13 +440,14 @@ def menu_principal():
                             f'[2] - {cor["roxo"]}Escolher time titular (um por um)\n{cor["verde"]}'
                             f'[3] - {cor["roxo"]}Escolha automatica\n{cor["verde"]}'
                             f'[4] - {cor["roxo"]}Salvar Jogo\n{cor["verde"]}'
-                            f'[5] - {cor["roxo"]}Music Menu{cor["limpa"]}\n'
+                            f'[5] - {cor["roxo"]}Music Menu{cor["verde"]}\n'
+                            f'[6] - {cor["roxo"]}Ver financas{cor["limpa"]}'
                             f'> '))
 
         if escolha.isnumeric():
             ver = int(escolha)
 
-            if 0 < ver < 6:
+            if 0 < ver < 7:
 
 
                 if ver == 1:
@@ -452,6 +482,9 @@ def menu_principal():
 
                 elif ver == 5:
                     musica()
+
+                elif ver == 6:
+                    financas.tabela_financeira(seu_time)
 
             else:
                 print(f'{cor["vermelho"]}Digite um valor valido.{cor["limpa"]}')
@@ -630,14 +663,15 @@ def main():
                             f'[2] - {cor["roxo"]}Ver seu time titular\n{cor["verde"]}'
                             f'[3] - {cor["roxo"]}Substituir\n'f'{cor["verde"]}'
                             f'[4] - {cor["roxo"]}Escolher esquema novamente\n{cor["verde"]}'
-                            f'[5] -{cor["roxo"]} Salvar\n{cor["verde"]}'
-                            f'[6] -{cor["roxo"]} Music Menu{cor["verde"]}\n'
-                            f'[7] - {cor["roxo"]}Sair\n: {cor["limpa"]}'))
+                            f'[5] -{cor["roxo"]} Ver tabela financeira\n{cor["verde"]}'
+                            f'[6] -{cor["roxo"]} Salvar jogo{cor["verde"]}\n'
+                            f'[7] - {cor["roxo"]}Music Menu\n{cor["verde"]}'
+                            f'[8] -{cor["roxo"]} Sair\n: {cor["limpa"]}'))
 
         if escolha.isnumeric():
             acao = int(escolha)
 
-            if 0 < acao < 8:
+            if 0 < acao < 9:
 
                 if acao == 1:
                     mostrar_time(seu_time)
@@ -662,13 +696,16 @@ def main():
                     mostra_forca(forca)
 
                 elif acao == 5:
+                    financas.tabela_financeira(seu_time)
+
+                elif acao == 6:
                     salvar(nome_time)
                     print(f'{cor["azul"]}Jogo salvo.{cor["limpa"]}')
 
-                elif acao == 6:
+                elif acao == 7:
                     musica()
 
-                elif acao == 7:
+                elif acao == 8:
                     print('Encerrando...')
                     break
 
@@ -680,25 +717,6 @@ def main():
 
 
 main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
